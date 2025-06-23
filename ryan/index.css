@@ -1,0 +1,366 @@
+:where([class^="ri-"])::before { content: "\f3c2"; }
+
+/* Rating System */
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.star-rating label:hover {
+    transform: scale(1.2);
+}
+
+.star-rating label:hover ~ label i,
+.star-rating label:hover i,
+.star-rating input:checked ~ label i {
+    color: #FFD700;
+}
+
+/* Dark mode rating */
+.dark .star-rating i {
+    color: #4b5563;
+}
+
+/* Switch Toggle */
+.custom-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.custom-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e2e8f0;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+input:checked + .switch-slider {
+    background-color: #6366f1;
+}
+
+input:checked + .switch-slider:before {
+    transform: translateX(24px);
+}
+
+/* Dark mode switches */
+.dark .switch-slider {
+    background-color: #4b5563;
+}
+
+/* Custom Select */
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.custom-select-selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: white;
+    transition: all 0.2s;
+}
+
+.custom-select-selected:hover {
+    border-color: #6366f1;
+}
+
+.custom-select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    margin-top: 4px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    max-height: 250px;
+    overflow-y: auto;
+    display: none;
+}
+
+.custom-select-option {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.custom-select-option:hover {
+    background-color: #f3f4f6;
+    color: #6366f1;
+}
+
+.custom-select-option.selected {
+    background-color: #6366f1;
+    color: white;
+}
+
+/* Dark mode select */
+.dark .custom-select-selected {
+    background-color: #1f2937;
+    border-color: #374151;
+    color: #f3f4f6;
+}
+
+.dark .custom-select-options {
+    background-color: #1f2937;
+    border-color: #374151;
+}
+
+.dark .custom-select-option {
+    color: #f3f4f6;
+}
+
+.dark .custom-select-option:hover {
+    background-color: #374151;
+}
+
+.dark .custom-select-option.selected {
+    background-color: #6366f1;
+}
+
+/* Checkbox */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.custom-checkbox:hover .checkmark {
+    border-color: #6366f1;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #6366f1;
+    border-color: #6366f1;
+}
+
+.checkmark:after {
+    content: "";
+    display: none;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-top: -2px;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Dark mode checkbox */
+.dark .checkmark {
+    background-color: #1f2937;
+    border-color: #4b5563;
+}
+
+.dark .custom-checkbox:hover .checkmark {
+    border-color: #6366f1;
+}
+
+/* Radio Buttons */
+.custom-radio {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+}
+
+.custom-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-mark {
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.custom-radio:hover .radio-mark {
+    border-color: #6366f1;
+}
+
+.custom-radio input:checked ~ .radio-mark {
+    border-color: #6366f1;
+}
+
+.radio-mark:after {
+    content: "";
+    display: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #6366f1;
+}
+
+.custom-radio input:checked ~ .radio-mark:after {
+    display: block;
+}
+
+/* Dark mode radio */
+.dark .radio-mark {
+    background-color: #1f2937;
+    border-color: #4b5563;
+}
+
+.dark .custom-radio:hover .radio-mark {
+    border-color: #6366f1;
+}
+
+/* Range Slider */
+.custom-range {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 5px;
+    background: #e2e8f0;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.custom-range:hover {
+    background: #d1d5db;
+}
+
+.custom-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #6366f1;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.custom-range::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.custom-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #6366f1;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Dark mode range */
+.dark .custom-range {
+    background: #4b5563;
+}
+
+.dark .custom-range:hover {
+    background: #6b7280;
+}
+
+/* Tooltip for form elements */
+.form-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.form-tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #1f2937;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.875rem;
+}
+
+.form-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Focus states for accessibility */
+.custom-switch input:focus + .switch-slider,
+.custom-select-selected:focus,
+.custom-checkbox input:focus + .checkmark,
+.custom-radio input:focus + .radio-mark,
+.custom-range:focus {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
