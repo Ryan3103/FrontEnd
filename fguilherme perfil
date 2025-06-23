@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Perfil - GameRank</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#6366f1',secondary:'#4f46e5'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+    font-family: 'Poppins', sans-serif;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.custom-switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+}
+.custom-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e5e7eb;
+    transition: .4s;
+    border-radius: 24px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: #6366f1;
+}
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+.achievement-badge {
+    position: relative;
+    overflow: hidden;
+}
+.achievement-badge::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+    border-radius: inherit;
+}
+.progress-ring {
+    transform: rotate(-90deg);
+}
+.progress-ring-circle {
+    transition: stroke-dashoffset 0.35s;
+    transform-origin: 50% 50%;
+}
+.custom-radio {
+    display: none;
+}
+.custom-radio-label {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    padding-left: 28px;
+}
+.custom-radio-label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+.custom-radio-label::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #6366f1;
+    opacity: 0;
+    transition: all 0.2s;
+}
+.custom-radio:checked + .custom-radio-label::before {
+    border-color: #6366f1;
+}
+.custom-radio:checked + .custom-radio-label::after {
+    opacity: 1;
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<!-- Header -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="#" class="text-2xl font-['Pacifico'] text-primary mr-10">GameRank</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors">Início</a>
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors">Jogos</a>
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors">Ranking</a>
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors">Lançamentos</a>
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors">Comunidade</a>
+            </nav>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <input type="text" placeholder="Buscar jogos..." class="pl-10 pr-4 py-2 rounded-full bg-gray-100 border-none focus:ring-2 focus:ring-primary/20 focus:outline-none w-48 md:w-64 text-sm">
+                <div class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-500">
+                    <i class="ri-search-line"></i>
+                </div>
+            </div>
+            <div class="relative" id="userMenuContainer">
+                <div class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full cursor-pointer hover:bg-primary/90 transition-colors" id="userMenuButton">
+                    <i class="ri-user-line"></i>
+                </div>
+                <div class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg py-2 z-50" id="userDropdownMenu">
+                    <a href="https://readdy.ai/home/3218928d-4421-496f-89d8-d280713ec31b/03d94603-daed-4b5a-8a13-f7b8dcb881ae" data-readdy="true" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-user-3-line"></i>
+                        </div>
+                        <span>Meu Perfil</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-star-line"></i>
+                        </div>
+                        <span>Minhas Avaliações</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-heart-line"></i>
+                        </div>
+                        <span>Jogos Favoritos</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-settings-3-line"></i>
+                        </div>
+                        <span>Configurações</span>
+                    </a>
+                    <div class="h-px bg-gray-200 my-2"></div>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-logout-box-line"></i>
+                        </div>
+                        <span>Sair</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="pb-16">
+    <!-- Breadcrumb -->
+    <div class="bg-white border-b border-gray-200">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center text-sm">
+                <a href="#" class="text-gray-500 hover:text-primary">Início</a>
+                <span class="mx-2 text-gray-400">/</span>
+                <a href="https://readdy.ai/home/3218928d-4421-496f-89d8-d280713ec31b/03d94603-daed-4b5a-8a13-f7b8dcb881ae" data-readdy="true" class="text-primary font-medium">Meu Perfil</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Header -->
+    <section class="bg-white border-b border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="py-8">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                    <!-- Profile Picture -->
+                    <div class="relative">
+                        <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-md">
+                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520a%2520male%2520gamer%2520profile%2520picture%252C%2520young%2520adult%2520with%2520casual%2520style%252C%2520neutral%2520expression%252C%2520professional%2520portrait%2520with%2520clean%2520background&width=200&height=200&seq=1&orientation=squarish" alt="Foto de Perfil" class="w-full h-full object-cover">
+                        </div>
+                        <button class="absolute bottom-0 right-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center shadow-md hover:bg-primary/90 transition-colors">
+                            <i class="ri-camera-line"></i>
+                        </button>
+                    </div>
+
+                    <!-- Profile Info -->
+                    <div class="flex-1 text-center md:text-left">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-1">Lucas Oliveira</h1>
+                                <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 text-sm text-gray-500 mb-4">
+                                    <div class="flex items-center justify-center md:justify-start">
+                                        <div class="w-4 h-4 flex items-center justify-center mr-1">
+                                            <i class="ri-calendar-line"></i>
+                                        </div>
+                                        <span>Membro desde Março 2023</span>
+                                    </div>
+                                    <div class="hidden md:block h-4 w-px bg-gray-300"></div>
+                                    <div class="flex items-center justify-center md:justify-start">
+                                        <div class="w-4 h-4 flex items-center justify-center mr-1">
+                                            <i class="ri-gamepad-line"></i>
+                                        </div>
+                                        <span>143 jogos avaliados</span>
+                                    </div>
+                                    <div class="hidden md:block h-4 w-px bg-gray-300"></div>
+                                    <div class="flex items-center justify-center md:justify-start">
+                                        <div class="w-4 h-4 flex items-center justify-center mr-1">
+                                            <i class="ri-trophy-line"></i>
+                                        </div>
+                                        <span>27 conquistas</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex gap-3 justify-center md:justify-start">
+                                <button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-button text-sm font-medium whitespace-nowrap flex items-center">
+                                    <i class="ri-edit-line mr-2"></i>
+                                    Editar Perfil
+                                </button>
+                                <button class="bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 px-5 py-2 rounded-button text-sm font-medium whitespace-nowrap flex items-center">
+                                    <i class="ri-share-line mr-2"></i>
+                                    Compartilhar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Level Badge -->
+                        <div class="inline-flex items-center bg-gradient-to-r from-primary to-secondary px-4 py-1.5 rounded-full text-white text-sm font-medium mt-2">
+                            <div class="w-5 h-5 flex items-center justify-center mr-1.5">
+                                <i class="ri-vip-diamond-fill"></i>
+                            </div>
+                            Crítico Experiente - Nível 24
+                        </div>
+
+                        <!-- Bio -->
+                        <p class="mt-4 text-gray-600 max-w-3xl">
+                            Apaixonado por RPGs e jogos de aventura. Sempre em busca de novas experiências e histórias envolventes. Compartilho minhas opiniões para ajudar outros jogadores a encontrarem seus próximos jogos favoritos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Stats Cards -->
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Total Reviews Card -->
+                <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm mb-1">Total de Avaliações</p>
+                            <h3 class="text-3xl font-bold text-gray-900">143</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                            <i class="ri-star-line text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-100">
+                        <div class="flex items-center text-sm">
+                            <div class="w-4 h-4 flex items-center justify-center text-green-500 mr-1">
+                                <i class="ri-arrow-up-line"></i>
+                            </div>
+                            <span class="text-green-500 font-medium">12%</span>
+                            <span class="text-gray-500 ml-1">em relação ao mês anterior</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Average Rating Card -->
+                <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm mb-1">Nota Média</p>
+                            <h3 class="text-3xl font-bold text-gray-900">7.8</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-500">
+                            <i class="ri-bar-chart-line text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-100">
+                        <div class="flex items-center text-sm">
+                            <div class="flex text-yellow-400 mr-2">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-half-fill"></i>
+                                <i class="ri-star-line"></i>
+                            </div>
+                            <span class="text-gray-500">em 10</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Achievement Points Card -->
+                <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm mb-1">Pontos de Conquista</p>
+                            <h3 class="text-3xl font-bold text-gray-900">1.245</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-500">
+                            <i class="ri-trophy-line text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-100">
+                        <div class="flex items-center text-sm">
+                            <div class="w-4 h-4 flex items-center justify-center text-green-500 mr-1">
+                                <i class="ri-arrow-up-line"></i>
+                            </div>
+                            <span class="text-green-500 font-medium">3 conquistas</span>
+                            <span class="text-gray-500 ml-1">nos últimos 30 dias</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Reputation Card -->
+                <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm mb-1">Reputação na Comunidade</p>
+                            <h3 class="text-3xl font-bold text-gray-900">Ouro</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-500">
+                            <i class="ri-medal-line text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-100">
+                        <div class="flex items-center text-sm">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-amber-500 h-2 rounded-full" style="width: 78%"></div>
+                            </div>
+                            <span class="text-gray-500 ml-2 whitespace-nowrap">78%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Left Column -->
+                <div class="w-full lg:w-8/12">
+                    <!-- Tabs -->
+                    <div class="bg-white rounded-lg shadow-sm mb-6">
+                        <div class="border-b border-gray-200">
+                            <div class="flex overflow-x-auto">
+                                <button class="tab-button active px-6 py-4 text-primary font-medium border-b-2 border-primary whitespace-nowrap" data-tab="reviews">
+                                    <i class="ri-star-line mr-2"></i>Avaliações Recentes
+                                </button>
+                                <button class="tab-button px-6 py-4 text-gray-500 font-medium border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-tab="activity">
+                                    <i class="ri-history-line mr-2"></i>Histórico de Atividades
+                                </button>
+                                <button class="tab-button px-6 py-4 text-gray-500 font-medium border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-tab="collections">
+                                    <i class="ri-folder-line mr-2"></i>Coleções
+                                </button>
+                                <button class="tab-button px-6 py-4 text-gray-500 font-medium border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-tab="friends">
+                                    <i class="ri-user-line mr-2"></i>Amigos
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Reviews Tab Content -->
+                        <div id="reviews" class="tab-content active p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-xl font-bold text-gray-900">Avaliações Recentes</h3>
+                                <div class="flex items-center">
+                                    <span class="text-sm text-gray-500 mr-2">Ordenar por:</span>
+                                    <div class="relative">
+                                        <button class="text-sm text-gray-700 font-medium flex items-center bg-gray-100 rounded-full px-4 py-1.5">
+                                            Mais recentes
+                                            <i class="ri-arrow-down-s-line ml-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-6">
+                                <!-- Review 1 -->
+                                <div class="border border-gray-200 rounded-lg p-5 hover:shadow-sm transition-shadow">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Baldurs%2520Gate%25203%2520video%2520game%2520icon%252C%2520fantasy%2520RPG%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=80&height=80&seq=2&orientation=squarish" alt="Baldur's Gate 3" class="w-16 h-16 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h4 class="font-bold text-gray-900">Baldur's Gate 3</h4>
+                                                <p class="text-sm text-gray-500">Larian Studios • RPG</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col items-end">
+                                            <div class="flex items-center mb-1">
+                                                <span class="text-xl font-bold text-gray-900 mr-2">9.5</span>
+                                                <div class="flex text-yellow-400">
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-half-fill"></i>
+                                                </div>
+                                            </div>
+                                            <span class="text-xs text-gray-500">23 de junho de 2025</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-700 mb-4">Baldur's Gate 3 é simplesmente o melhor RPG que já joguei. A liberdade de escolhas, as consequências de suas ações, o combate tático e a narrativa envolvente criam uma experiência inesquecível. Cada personagem tem uma história rica e interessante, e as possibilidades de como abordar cada situação são quase infinitas.</p>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center gap-4">
+                                            <span class="text-sm text-gray-500">Tempo jogado: <span class="font-medium text-gray-700">187 horas</span></span>
+                                            <span class="text-sm text-gray-500">Plataforma: <span class="font-medium text-gray-700">PC</span></span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-edit-line"></i>
+                                            </button>
+                                            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Review 2 -->
+                                <div class="border border-gray-200 rounded-lg p-5 hover:shadow-sm transition-shadow">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Final%2520Fantasy%2520VII%2520Rebirth%2520video%2520game%2520icon%252C%2520JRPG%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=80&height=80&seq=3&orientation=squarish" alt="Final Fantasy VII Rebirth" class="w-16 h-16 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h4 class="font-bold text-gray-900">Final Fantasy VII Rebirth</h4>
+                                                <p class="text-sm text-gray-500">Square Enix • JRPG</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col items-end">
+                                            <div class="flex items-center mb-1">
+                                                <span class="text-xl font-bold text-gray-900 mr-2">8.7</span>
+                                                <div class="flex text-yellow-400">
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-line"></i>
+                                                </div>
+                                            </div>
+                                            <span class="text-xs text-gray-500">18 de junho de 2025</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-700 mb-4">Final Fantasy VII Rebirth expande o universo do Remake de forma impressionante. O mundo aberto é vasto e cheio de atividades, e o sistema de combate foi aprimorado. A história continua fiel ao espírito do original, mas com reviravoltas surpreendentes. Algumas sidequests são repetitivas, mas o jogo como um todo é uma experiência fantástica.</p>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center gap-4">
+                                            <span class="text-sm text-gray-500">Tempo jogado: <span class="font-medium text-gray-700">76 horas</span></span>
+                                            <span class="text-sm text-gray-500">Plataforma: <span class="font-medium text-gray-700">PS5</span></span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-edit-line"></i>
+                                            </button>
+                                            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Review 3 -->
+                                <div class="border border-gray-200 rounded-lg p-5 hover:shadow-sm transition-shadow">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Elden%2520Ring%2520video%2520game%2520icon%252C%2520dark%2520fantasy%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=80&height=80&seq=4&orientation=squarish" alt="Elden Ring" class="w-16 h-16 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h4 class="font-bold text-gray-900">Elden Ring: Shadow of the Erdtree</h4>
+                                                <p class="text-sm text-gray-500">FromSoftware • Souls-like / RPG</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col items-end">
+                                            <div class="flex items-center mb-1">
+                                                <span class="text-xl font-bold text-gray-900 mr-2">9.3</span>
+                                                <div class="flex text-yellow-400">
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-half-fill"></i>
+                                                </div>
+                                            </div>
+                                            <span class="text-xs text-gray-500">10 de junho de 2025</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-700 mb-4">Shadow of the Erdtree é uma expansão digna do jogo base. Os novos chefes são desafiadores e memoráveis, as áreas são visualmente deslumbrantes e a história expande o lore de forma fascinante. O nível de dificuldade é ainda maior que o jogo original, o que pode frustrar alguns jogadores, mas a sensação de conquista ao superar os desafios é incomparável.</p>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center gap-4">
+                                            <span class="text-sm text-gray-500">Tempo jogado: <span class="font-medium text-gray-700">52 horas</span></span>
+                                            <span class="text-sm text-gray-500">Plataforma: <span class="font-medium text-gray-700">PC</span></span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-edit-line"></i>
+                                            </button>
+                                            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 text-center">
+                                <button class="text-primary font-medium hover:text-primary/80 transition-colors">
+                                    Ver todas as avaliações
+                                    <i class="ri-arrow-right-line ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Activity Tab Content -->
+                        <div id="activity" class="tab-content p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-xl font-bold text-gray-900">Histórico de Atividades</h3>
+                                <div class="flex items-center">
+                                    <button class="text-sm text-gray-700 font-medium flex items-center bg-gray-100 rounded-full px-4 py-1.5">
+                                        Filtrar
+                                        <i class="ri-filter-3-line ml-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="relative pl-6 border-l-2 border-gray-200 space-y-8">
+                                <!-- Activity 1 -->
+                                <div class="relative">
+                                    <div class="absolute -left-[25px] w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border-4 border-white">
+                                        <i class="ri-star-line text-primary"></i>
+                                    </div>
+                                    <div class="bg-white rounded-lg border border-gray-200 p-4 ml-4 hover:shadow-sm transition-shadow">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <p class="text-gray-700">
+                                                    <span class="font-medium">Avaliou</span>
+                                                    <span class="text-primary font-medium">Baldur's Gate 3</span>
+                                                    com nota
+                                                    <span class="font-medium">9.5</span>
+                                                </p>
+                                                <span class="text-xs text-gray-500">23 de junho de 2025 • 14:32</span>
+                                            </div>
+                                            <div class="flex text-yellow-400 text-sm">
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-half-fill"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Activity 2 -->
+                                <div class="relative">
+                                    <div class="absolute -left-[25px] w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center border-4 border-white">
+                                        <i class="ri-trophy-line text-blue-500"></i>
+                                    </div>
+                                    <div class="bg-white rounded-lg border border-gray-200 p-4 ml-4 hover:shadow-sm transition-shadow">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <p class="text-gray-700">
+                                                    <span class="font-medium">Conquistou</span>
+                                                    <span class="text-blue-500 font-medium">Crítico Dedicado</span>
+                                                    por avaliar 10 jogos em um mês
+                                                </p>
+                                                <span class="text-xs text-gray-500">20 de junho de 2025 • 19:15</span>
+                                            </div>
+                                            <div class="w-8 h-8 flex items-center justify-center text-blue-500">
+                                                <i class="ri-award-fill"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Activity 3 -->
+                                <div class="relative">
+                                    <div class="absolute -left-[25px] w-10 h-10 rounded-full bg-green-100 flex items-center justify-center border-4 border-white">
+                                        <i class="ri-gamepad-line text-green-500"></i>
+                                    </div>
+                                    <div class="bg-white rounded-lg border border-gray-200 p-4 ml-4 hover:shadow-sm transition-shadow">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <p class="text-gray-700">
+                                                    <span class="font-medium">Começou a jogar</span>
+                                                    <span class="text-green-500 font-medium">Final Fantasy VII Rebirth</span>
+                                                </p>
+                                                <span class="text-xs text-gray-500">15 de junho de 2025 • 10:42</span>
+                                            </div>
+                                            <div class="w-8 h-8 flex items-center justify-center text-green-500">
+                                                <i class="ri-play-circle-line"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Activity 4 -->
+                                <div class="relative">
+                                    <div class="absolute -left-[25px] w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center border-4 border-white">
+                                        <i class="ri-heart-line text-purple-500"></i>
+                                    </div>
+                                    <div class="bg-white rounded-lg border border-gray-200 p-4 ml-4 hover:shadow-sm transition-shadow">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <p class="text-gray-700">
+                                                    <span class="font-medium">Adicionou</span>
+                                                    <span class="text-purple-500 font-medium">Assassin's Creed Shadows</span>
+                                                    à lista de desejos
+                                                </p>
+                                                <span class="text-xs text-gray-500">12 de junho de 2025 • 08:23</span>
+                                            </div>
+                                            <div class="w-8 h-8 flex items-center justify-center text-purple-500">
+                                                <i class="ri-bookmark-line"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Activity 5 -->
+                                <div class="relative">
+                                    <div class="absolute -left-[25px] w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center border-4 border-white">
+                                        <i class="ri-user-add-line text-amber-500"></i>
+                                    </div>
+                                    <div class="bg-white rounded-lg border border-gray-200 p-4 ml-4 hover:shadow-sm transition-shadow">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <p class="text-gray-700">
+                                                    <span class="font-medium">Entrou no grupo</span>
+                                                    <span class="text-amber-500 font-medium">RPG Lovers Brasil</span>
+                                                </p>
+                                                <span class="text-xs text-gray-500">10 de junho de 2025 • 16:50</span>
+                                            </div>
+                                            <div class="w-8 h-8 flex items-center justify-center text-amber-500">
+                                                <i class="ri-group-line"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 text-center">
+                                <button class="text-primary font-medium hover:text-primary/80 transition-colors">
+                                    Carregar mais atividades
+                                    <i class="ri-arrow-down-line ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Collections Tab Content -->
+                        <div id="collections" class="tab-content p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-xl font-bold text-gray-900">Minhas Coleções</h3>
+                                <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap flex items-center">
+                                    <i class="ri-add-line mr-1"></i>
+                                    Nova Coleção
+                                </button>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Collection 1 -->
+                                <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-sm transition-shadow">
+                                    <div class="relative h-32 bg-gradient-to-r from-blue-500 to-purple-600">
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <h4 class="text-xl font-bold text-white">Meus RPGs Favoritos</h4>
+                                        </div>
+                                        <div class="absolute bottom-3 right-3 bg-black/30 text-white text-xs px-2 py-1 rounded-full">
+                                            18 jogos
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <p class="text-sm text-gray-600 mb-3">Uma coleção com meus RPGs favoritos de todos os tempos, incluindo clássicos e lançamentos recentes.</p>
+                                        <div class="flex -space-x-3">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Baldurs%2520Gate%25203%2520video%2520game%2520icon%252C%2520fantasy%2520RPG%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=5&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Elden%2520Ring%2520video%2520game%2520icon%252C%2520dark%2520fantasy%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=6&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Final%2520Fantasy%2520VII%2520Rebirth%2520video%2520game%2520icon%252C%2520JRPG%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=7&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Starfield%2520video%2520game%2520icon%252C%2520sci-fi%2520space%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=8&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs font-medium text-gray-600">+14</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Collection 2 -->
+                                <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-sm transition-shadow">
+                                    <div class="relative h-32 bg-gradient-to-r from-red-500 to-orange-500">
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <h4 class="text-xl font-bold text-white">Jogos Completos 100%</h4>
+                                        </div>
+                                        <div class="absolute bottom-3 right-3 bg-black/30 text-white text-xs px-2 py-1 rounded-full">
+                                            12 jogos
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <p class="text-sm text-gray-600 mb-3">Jogos que completei 100%, incluindo todas as conquistas, missões secundárias e colecionáveis.</p>
+                                        <div class="flex -space-x-3">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520God%2520of%2520War%2520Ragnarok%2520video%2520game%2520icon%252C%2520Norse%2520mythology%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=9&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Horizon%2520Forbidden%2520West%2520video%2520game%2520icon%252C%2520post-apocalyptic%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=10&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Cyberpunk%25202077%2520video%2520game%2520icon%252C%2520futuristic%2520cyberpunk%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=11&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520The%2520Legend%2520of%2520Zelda:%2520Tears%2520of%2520the%2520Kingdom%2520video%2520game%2520icon%252C%2520fantasy%2520adventure%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=12&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs font-medium text-gray-600">+8</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Collection 3 -->
+                                <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-sm transition-shadow">
+                                    <div class="relative h-32 bg-gradient-to-r from-green-500 to-teal-500">
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <h4 class="text-xl font-bold text-white">Lista de Desejos</h4>
+                                        </div>
+                                        <div class="absolute bottom-3 right-3 bg-black/30 text-white text-xs px-2 py-1 rounded-full">
+                                            23 jogos
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <p class="text-sm text-gray-600 mb-3">Jogos que pretendo adquirir no futuro, incluindo lançamentos próximos e títulos em promoção.</p>
+                                        <div class="flex -space-x-3">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Dragon%2520Age:%2520The%2520Veilguard%2520video%2520game%2520icon%252C%2520fantasy%2520RPG%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=13&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Assassins%2520Creed%2520Shadows%2520video%2520game%2520icon%252C%2520feudal%2520Japan%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=14&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Fable%25204%2520video%2520game%2520icon%252C%2520fantasy%2520RPG%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=15&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Star%2520Wars%2520Outlaws%2520video%2520game%2520icon%252C%2520sci-fi%2520space%2520adventure%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=16&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs font-medium text-gray-600">+19</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Collection 4 -->
+                                <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-sm transition-shadow">
+                                    <div class="relative h-32 bg-gradient-to-r from-purple-500 to-pink-500">
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <h4 class="text-xl font-bold text-white">Jogos Indie Recomendados</h4>
+                                        </div>
+                                        <div class="absolute bottom-3 right-3 bg-black/30 text-white text-xs px-2 py-1 rounded-full">
+                                            15 jogos
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <p class="text-sm text-gray-600 mb-3">Uma seleção de jogos independentes que merecem mais atenção, com experiências únicas e inovadoras.</p>
+                                        <div class="flex -space-x-3">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Hollow%2520Knight%2520video%2520game%2520icon%252C%2520indie%2520metroidvania%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=17&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Hades%2520video%2520game%2520icon%252C%2520indie%2520roguelike%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=18&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Stardew%2520Valley%2520video%2520game%2520icon%252C%2520indie%2520farming%2520sim%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=19&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520Celeste%2520video%2520game%2520icon%252C%2520indie%2520platformer%2520setting%252C%2520professional%2520game%2520icon%2520with%2520clean%2520background&width=50&height=50&seq=20&orientation=squarish" alt="Jogo" class="w-8 h-8 rounded-full border-2 border-white">
+                                            <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs font-medium text-gray-600">+11</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 text-center">
+                                <button class="text-primary font-medium hover:text-primary/80 transition-colors">
+                                    Ver todas as coleções
+                                    <i class="ri-arrow-right-line ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Friends Tab Content -->
+                        <div id="friends" class="tab-content p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-xl font-bold text-gray-900">Amigos</h3>
+                                <div class="flex items-center gap-3">
+                                    <div class="relative">
+                                        <input type="text" placeholder="Buscar amigos..." class="pl-9 pr-4 py-2 rounded-full bg-gray-100 border-none focus:ring-2 focus:ring-primary/20 focus:outline-none w-48 text-sm">
+                                        <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center text-gray-500">
+                                            <i class="ri-search-line"></i>
+                                        </div>
+                                    </div>
+                                    <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap flex items-center">
+                                        <i class="ri-user-add-line mr-1"></i>
+                                        Adicionar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Friend 1 -->
+                                <div class="flex items-center justify-between bg-white rounded-lg border border-gray-200 p-4 hover:shadow-sm transition-shadow">
+                                    <div class="flex items-center">
+                                        <div class="relative">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520a%2520male%2520gamer%2520profile%2520picture%252C%2520young%2520adult%2520with%2520casual%2520style%252C%2520neutral%2520expression%252C%2520professional%2520portrait%2520with%2520clean%2520background&width=100&height=100&seq=21&orientation=squarish" alt="Amigo" class="w-12 h-12 rounded-full object-cover">
+                                            <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h4 class="font-medium text-gray-900">Pedro Almeida</h4>
+                                            <p class="text-xs text-gray-500">Crítico Mestre • Nível 32</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-message-3-line"></i>
+                                        </button>
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-more-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Friend 2 -->
+                                <div class="flex items-center justify-between bg-white rounded-lg border border-gray-200 p-4 hover:shadow-sm transition-shadow">
+                                    <div class="flex items-center">
+                                        <div class="relative">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520a%2520female%2520gamer%2520profile%2520picture%252C%2520young%2520adult%2520with%2520colorful%2520hair%252C%2520neutral%2520expression%252C%2520professional%2520portrait%2520with%2520clean%2520background&width=100&height=100&seq=22&orientation=squarish" alt="Amigo" class="w-12 h-12 rounded-full object-cover">
+                                            <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h4 class="font-medium text-gray-900">Mariana Costa</h4>
+                                            <p class="text-xs text-gray-500">Crítico Dedicado • Nível 18</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-message-3-line"></i>
+                                        </button>
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-more-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Friend 3 -->
+                                <div class="flex items-center justify-between bg-white rounded-lg border border-gray-200 p-4 hover:shadow-sm transition-shadow">
+                                    <div class="flex items-center">
+                                        <div class="relative">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520a%2520male%2520gamer%2520profile%2520picture%252C%2520middle-aged%2520with%2520glasses%252C%2520neutral%2520expression%252C%2520professional%2520portrait%2520with%2520clean%2520background&width=100&height=100&seq=23&orientation=squarish" alt="Amigo" class="w-12 h-12 rounded-full object-cover">
+                                            <div class="absolute bottom-0 right-0 w-3 h-3 bg-gray-300 rounded-full border-2 border-white"></div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h4 class="font-medium text-gray-900">Roberto Mendes</h4>
+                                            <p class="text-xs text-gray-500">Crítico Experiente • Nível 27</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-message-3-line"></i>
+                                        </button>
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-more-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Friend 4 -->
+                                <div class="flex items-center justify-between bg-white rounded-lg border border-gray-200 p-4 hover:shadow-sm transition-shadow">
+                                    <div class="flex items-center">
+                                        <div class="relative">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520a%2520female%2520gamer%2520profile%2520picture%252C%2520young%2520adult%2520with%2520casual%2520style%252C%2520neutral%2520expression%252C%2520professional%2520portrait%2520with%2520clean%2520background&width=100&height=100&seq=24&orientation=squarish" alt="Amigo" class="w-12 h-12 rounded-full object-cover">
+                                            <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h4 class="font-medium text-gray-900">Camila Rodrigues</h4>
+                                            <p class="text-xs text-gray-500">Crítico Iniciante • Nível 8</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-message-3-line"></i>
+                                        </button>
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-more-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Friend 5 -->
+                                <div class="flex items-center justify-between bg-white rounded-lg border border-gray-200 p-4 hover:shadow-sm transition-shadow">
+                                    <div class="flex items-center">
+                                        <div class="relative">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520a%2520male%2520gamer%2520profile%2520picture%252C%2520young%2520adult%2520with%2520headset%252C%2520neutral%2520expression%252C%2520professional%2520portrait%2520with%2520clean%2520background&width=100&height=100&seq=25&orientation=squarish" alt="Amigo" class="w-12 h-12 rounded-full object-cover">
+                                            <div class="absolute bottom-0 right-0 w-3 h-3 bg-gray-300 rounded-full border-2 border-white"></div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h4 class="font-medium text-gray-900">Gabriel Santos</h4>
+                                            <p class="text-xs text-gray-500">Crítico Avançado • Nível 21</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-message-3-line"></i>
+                                        </button>
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-more-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Friend 6 -->
+                                <div class="flex items-center justify-between bg-white rounded-lg border border-gray-200 p-4 hover:shadow-sm transition-shadow">
+                                    <div class="flex items-center">
+                                        <div class="relative">
+                                            <img src="https://readdy.ai/api/search-image?query=high%2520quality%2520realistic%2520image%2520of%2520a%2520female%2520gamer%2520profile%2520picture%252C%2520middle-aged%2520with%2520glasses%252C%2520neutral%2520expression%252C%2520professional%2520portrait%2520with%2520clean%2520background&width=100&height=100&seq=26&orientation=squarish" alt="Amigo" class="w-12 h-12 rounded-full object-cover">
+                                            <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h4 class="font-medium text-gray-900">Patrícia Lima</h4>
+                                            <p class="text-xs text-gray-500">Crítico Experiente • Nível 23</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-message-3-line"></i>
+                                        </button>
+                                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                                            <i class="ri-more-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 text-center">
+                                <button class="text-primary font-medium hover:text-primary/80 transition-colors">
+                                    Ver todos os amigos
+                                    <i class="ri-arrow-right-line ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="w-full lg:w-4/12">
+                    <!-- Gaming Preferences -->
+                    <div class="bg-white rounded-lg shadow-sm mb-6">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h3 class="text-lg font-bold text-gray-900">Preferências de Jogos</h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="mb-6">
+                                <h4 class="text-sm font-medium text-gray-700 mb-3">Gêneros Favoritos</h4>
+                                <div id="genresChart" class="h-64"></div>
+                            </div>
+                            <div class="mb-6">
+                                <h4 class="text-sm font-medium text-gray-700 mb-3">Plataformas Mais Utilizadas</h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-sm text-gray-700">PC</span>
+                                            <span class="text-xs text-gray-500">68%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-primary h-2 rounded-full" style="width: 68%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-sm text-gray-700">PlayStation 5</span>
+                                            <span class="text-xs text-gray-500">23%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-primary h-2 rounded-full" style="width: 23%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-sm text-gray-700">Nintendo Switch</span>
+                                            <span class="text-xs text-gray-500">9%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-primary h-2 rounded-full" style="width: 9%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-700 mb-3">Preferências de Jogo</h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm text-gray-700">Jogos Single Player</label>
+                                        <label class="custom-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm text-gray-700">Jogos Multiplayer</label>
+                                        <label class="custom-switch">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm text-gray-700">Jogos Competitivos</label>
+                                        <label class="custom-switch">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm text-gray-700">Jogos Cooperativos</label>
+                                        <label class="custom-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Achievements -->
+                    <div class="bg-white rounded-lg shadow-sm mb-6">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-lg font-bold text-gray-900">Conquistas</h3>
+                                <button class="text-primary text-sm font-medium">Ver todas</button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="grid grid-cols-2 gap-4">
+                                <!-- Achievement 1 -->
+                                <div class="achievement-badge bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg p-4 text-white">
+                                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mb-2">
+                                        <i class="ri-medal-fill text-xl"></i>
+                                    </div>
+                                    <h4 class="font-medium text-sm mb-1">Crítico Dedicado</h4>
+                                    <p class="text-xs text-white/80">Avaliou 10 jogos em um mês</p>
+                                </div>
+                                <!-- Achievement 2 -->
+                                <div class="achievement-badge bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-4 text-white">
+                                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mb-2">
+                                        <i class="ri-trophy-fill text-xl"></i>
+                                    </div>
+                                    <h4 class="font-medium text-sm mb-1">Colecionador</h4>
+                                    <p class="text-xs text-white/80">Criou 5 coleções de jogos</p>
+                                </div>
+                                <!-- Achievement 3 -->
+                                <div class="achievement-badge bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+                                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mb-2">
+                                        <i class="ri-user-star-fill text-xl"></i>
+                                    </div>
+                                    <h4 class="font-medium text-sm mb-1">Influenciador</h4>
+                                    <p class="text-xs text-white/80">100+ curtidas em avaliações</p>
+                                </div>
+                                <!-- Achievement 4 -->
+                                <div class="achievement-badge bg-gradient-to-br from-green-500 to-green-600 rounded-lg p-4 text-white">
+                                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mb-2">
+                                        <i class="ri-gamepad-fill text-xl"></i>
+                                    </div>
+                                    <h4 class="font-medium text-sm mb-1">Gamer Dedicado</h4>
+                                    <p class="text-xs text-white/80">Avaliou 100+ jogos</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-4 border-t border-gray-200">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-sm font-medium text-gray-700">Progresso de Nível</h4>
+                                    <span class="text-xs font-medium text-primary">Nível 24</span>
+                                </div>
+                                <div class="relative pt-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div>
+                                            <span class="text-xs font-medium text-primary inline-block py-1">
+                                                1.245 / 1.500 pontos
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs font-medium text-primary inline-block py-1">
+                                                83%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="overflow-hidden h-2 text-xs flex rounded-full bg-primary/20">
+                                        <div style="width: 83%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Settings -->
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h3 class="text-lg font-bold text-gray-900">Configurações da Conta</h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-700 mb-2">Privacidade do Perfil</h4>
+                                    <div class="space-y-2">
+                                        <div>
+                                            <input type="radio" id="public" name="privacy" class="custom-radio" checked>
+                                            <label for="public" class="custom-radio-label text-sm text-gray-700">Público</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="friends" name="privacy" class="custom-radio">
+                                            <label for="friends" class="custom-radio-label text-sm text-gray-700">Apenas amigos</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="private" name="privacy" class="custom-radio">
+                                            <label for="private" class="custom-radio-label text-sm text-gray-700">Privado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-700 mb-2">Notificações</h4>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center justify-between">
+                                            <label class="text-sm text-gray-700">Avaliações curtidas</label>
+                                            <label class="custom-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <label class="text-sm text-gray-700">Comentários</label>
+                                            <label class="custom-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <label class="text-sm text-gray-700">Solicitações de amizade</label>
+                                            <label class="custom-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <label class="text-sm text-gray-700">Novos lançamentos</label>
+                                            <label class="custom-switch">
+                                                <input type="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-4 border-t border-gray-200">
+                                    <button class="w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-button text-sm font-medium whitespace-nowrap">
+                                        Salvar Configurações
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <div>
+                <a href="#" class="text-2xl font-['Pacifico'] text-white mb-6 inline-block">GameRank</a>
+                <p class="text-gray-400 mb-6">A maior comunidade de avaliação de jogos do Brasil. Descubra, avalie e compartilhe suas experiências com outros gamers.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+                        <i class="ri-twitter-x-fill"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+                        <i class="ri-instagram-fill"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+                        <i class="ri-discord-fill"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-6">Links Rápidos</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Início</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Jogos</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Ranking</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Lançamentos</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Comunidade</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-6">Suporte</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contato</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Política de Privacidade</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Termos de Uso</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Política de Cookies</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-6">Contato</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-0.5">
+                            <i class="ri-map-pin-line"></i>
+                        </div>
+                        <span class="text-gray-400">Av. Paulista, 1000 - São Paulo, SP</span>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-0.5">
+                            <i class="ri-mail-line"></i>
+                        </div>
+                        <span class="text-gray-400">contato@gamerank.com.br</span>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-0.5">
+                            <i class="ri-phone-line"></i>
+                        </div>
+                        <span class="text-gray-400">(11) 3456-7890</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 GameRank. Todos os direitos reservados.</p>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-400 text-sm">Métodos de pagamento:</span>
+                    <div class="flex space-x-2">
+                        <i class="ri-visa-fill text-xl text-gray-400"></i>
+                        <i class="ri-mastercard-fill text-xl text-gray-400"></i>
+                        <i class="ri-paypal-fill text-xl text-gray-400"></i>
+                        <i class="ri-apple-fill text-xl text-gray-400"></i>
+                        <i class="ri-google-fill text-xl text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script id="user-dropdown">
+document.addEventListener('DOMContentLoaded', function() {
+    const userMenuButton = document.getElementById('userMenuButton');
+    const userDropdownMenu = document.getElementById('userDropdownMenu');
+    const userMenuContainer = document.getElementById('userMenuContainer');
+    userMenuButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        userDropdownMenu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!userMenuContainer.contains(e.target)) {
+            userDropdownMenu.classList.add('hidden');
+        }
+    });
+});
+</script>
+
+<script id="tab-switcher">
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+           
+            // Remove active class from all buttons and contents
+            tabButtons.forEach(btn => btn.classList.remove('active', 'text-primary', 'border-primary'));
+            tabButtons.forEach(btn => btn.classList.add('text-gray-500', 'border-transparent'));
+            tabContents.forEach(content => content.classList.remove('active'));
+           
+            // Add active class to clicked button and corresponding content
+            this.classList.add('active', 'text-primary', 'border-primary');
+            this.classList.remove('text-gray-500', 'border-transparent');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+});
+</script>
+
+<script id="genres-chart">
+document.addEventListener('DOMContentLoaded', function() {
+    const genresChart = echarts.init(document.getElementById('genresChart'));
+   
+    const option = {
+        animation: false,
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b}: {c} ({d}%)',
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            borderColor: '#e5e7eb',
+            borderWidth: 1,
+            padding: 10,
+            textStyle: {
+                color: '#1f2937'
+            }
+        },
+        legend: {
+            orient: 'vertical',
+            right: 10,
+            top: 'center',
+            data: ['RPG', 'Ação/Aventura', 'Estratégia', 'FPS', 'Outros'],
+            textStyle: {
+                color: '#1f2937',
+                fontSize: 12
+            },
+            itemWidth: 10,
+            itemHeight: 10
+        },
+        series: [
+            {
+                type: 'pie',
+                radius: ['40%', '70%'],
+                center: ['40%', '50%'],
+                avoidLabelOverlap: false,
+                itemStyle: {
+                    borderRadius: 8,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                label: {
+                    show: false
+                },
+                emphasis: {
+                    label: {
+                        show: false
+                    }
+                },
+                data: [
+                    { value: 42, name: 'RPG', itemStyle: { color: 'rgba(87, 181, 231, 1)' } },
+                    { value: 28, name: 'Ação/Aventura', itemStyle: { color: 'rgba(141, 211, 199, 1)' } },
+                    { value: 15, name: 'Estratégia', itemStyle: { color: 'rgba(251, 191, 114, 1)' } },
+                    { value: 10, name: 'FPS', itemStyle: { color: 'rgba(252, 141, 98, 1)' } },
+                    { value: 5, name: 'Outros', itemStyle: { color: '#d1d5db' } }
+                ]
+            }
+        ]
+    };
+   
+    genresChart.setOption(option);
+   
+    window.addEventListener('resize', function() {
+        genresChart.resize();
+    });
+});
+</script>
+
+</body>
+</html>
