@@ -1,153 +1,372 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <title>Home</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>
-        tailwind.config={
-            theme:{
-                extend:{
-                    colors:{
-                        primary:'#5271ff',
-                        secondary:'#ff7a50'
-                    },
-                    borderRadius:{
-                        'none':'0px',
-                        'sm':'4px',
-                        DEFAULT:'8px',
-                        'md':'12px',
-                        'lg':'16px',
-                        'xl':'20px',
-                        '2xl':'24px',
-                        '3xl':'32px',
-                        'full':'9999px',
-                        'button':'8px'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameRank - Avaliador de Jogos</title>
+  <style>
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <!-- Cabeçalho -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-6">
-                    <h1 class="text-2xl font-['Pacifico'] text-primary">ArtemisCore</h1>
-                    <nav class="hidden md:flex items-center space-x-6">
-                        <a href="#" class="text-gray-800 hover:text-primary transition-colors flex items-center space-x-1">
-                            <div class="w-5 h-5 flex items-center justify-center">
-                                <i class="ri-home-5-line"></i>
-                            </div>
-                            <span>Início</span>
-                        </a>
-                        <a href="#" class="text-gray-800 hover:text-primary transition-colors flex items-center space-x-1">
-                            <div class="w-5 h-5 flex items-center justify-center">
-                                <i class="ri-gamepad-line"></i>
-                            </div>
-                            <span>Jogos</span>
-                        </a>
-                        <a href="#" class="text-gray-800 hover:text-primary transition-colors flex items-center space-x-1">
-                            <div class="w-5 h-5 flex items-center justify-center">
-                                <i class="ri-trophy-line"></i>
-                            </div>
-                            <span>Rankings</span>
-                        </a>
-                        <a href="#" class="text-gray-800 hover:text-primary transition-colors flex items-center space-x-1">
-                            <div class="w-5 h-5 flex items-center justify-center">
-                                <i class="ri-community-line"></i>
-                                </div>
-                            <span>Lançamentos</span>
-                        </a>
-                        <a href="#" class="text-gray-800 hover:text-primary transition-colors flex items-center space-x-1">
-                            <div class="w-5 h-5 flex items-center justify-center">
-                                <i class="ri-trophy-line"></i>
-                            </div>
-                            <span>Comunidade</span>
-                        </a>
-                    </nav>
-                </div>
-                
-                <div class="flex items-center space-x-4">
-                    <div class="relative">
-                        <div class="relative">
-                            <input type="text" placeholder="Pesquisar jogos..." class="pl-10 pr-4 py-2 w-full md:w-64 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 border-none">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none w-5 h-5">
-                                <i class="ri-search-line text-gray-400"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center space-x-3">
-                        <button class="relative w-10 h-10 flex items-center justify-center text-gray-700 hover:bg-gray-100 rounded-full">
-                            <i class="ri-notification-3-line"></i>
-                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                        </button>
-                        
-                        <div class="flex items-center space-x-2">
-                            <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-                                <img src="https://readdy.ai/api/search-image?query=professional%20profile%20photo%20of%20a%20young%20man%20with%20short%20hair%2C%20neutral%20expression%2C%20high%20quality%20portrait%2C%20professional%20lighting%2C%20studio%20background&width=100&height=100&seq=profile1&orientation=squarish" alt="Perfil" class="w-full h-full object-cover">
-                            </div>
-                            <span class="hidden md:inline text-sm font-medium">Ryan</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<body>
+<!-- Header -->
+<header>
+  <div class="container header-container">
+    <div class="flex items-center">
+      <a href="#" class="logo font-pacifico">GameRank</a>
+      <nav class="main-nav">
+        <a href="/" class="nav-link active">Início</a>
+        <a href="#" class="nav-link">Jogos</a>
+        <a href="#" class="nav-link">Ranking</a>
+        <a href="#" class="nav-link">Lançamentos</a>
+        <a href="#" class="nav-link">Comunidade</a>
+      </nav>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar jogos..." class="search-input">
+        <div class="search-icon">
+          <i class="ri-search-line"></i>
         </div>
-    </header>
-    <main class="container mx-auto px-4 py-6">
-        <!-- Banner de Destaque -->
-        <section class="mb-8 relative rounded-lg overflow-hidden shadow-lg h-96">
-            <img src="https://readdy.ai/api/search-image?query=cinematic%20scene%20of%20a%20professional%20gamer%20playing%20on%20a%20high-end%20gaming%20setup%20with%20multiple%20monitors%2C%20dramatic%20lighting%2C%20intense%20focus%2C%20high-quality%20gaming%20peripherals%2C%20RGB%20lighting%20effects%2C%20gaming%20chair%2C%20ultra-realistic%2C%208k%20quality%2C%20professional%20photography&width=1200&height=500&seq=banner1&orientation=landscape" alt="Destaque" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40 flex items-center">
-                <div class="px-8 w-full md:w-2/3 lg:w-1/2">
-                    <span class="inline-block px-3 py-1 bg-secondary text-white text-xs font-bold rounded-full mb-3">LANÇAMENTO</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-3">Cyber Horizon 2077: Edição Definitiva</h2>
-                    <div class="flex items-center mb-4">
-                        <div class="flex">
-                            <div class="w-5 h-5 flex items-center justify-center text-yellow-400">
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <div class="w-5 h-5 flex items-center justify-center text-yellow-400">
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <div class="w-5 h-5 flex items-center justify-center text-yellow-400">
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <div class="w-5 h-5 flex items-center justify-center text-yellow-400">
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <div class="w-5 h-5 flex items-center justify-center text-gray-400">
-                                <i class="ri-star-line"></i>
-                            </div>
-                        </div>
-                        <span class="ml-2 text-white text-sm">4.2 (1.238 avaliações)</span>
-                    </div>
-                    <p class="text-gray-200 mb-6">A versão definitiva do RPG de mundo aberto mais ambicioso da década. Inclui todas as expansões e melhorias gráficas para a nova geração.</p>
-                    <div class="flex space-x-4">
-                        <button class="bg-primary text-white px-6 py-2 rounded-button font-medium hover:bg-primary/90 transition-colors flex items-center space-x-2 whitespace-nowrap">
-                            <div class="w-5 h-5 flex items-center justify-center">
-                                <i class="ri-star-line"></i>
-                            </div>
-                            <span>Avaliar Agora</span>
-                        </button>
-                        <button class="bg-white/20 backdrop-blur-sm text-white px-6 py-2 rounded-button font-medium hover:bg-white/30 transition-colors flex items-center space-x-2 whitespace-nowrap">
-                            <div class="w-5 h-5 flex items-center justify-center">
-                                <i class="ri-bookmark-line"></i>
-                            </div>
-                            <span>Salvar</span>
-                        </button>
-                    </div>
-                </div>
+      </div>
+      <div class="relative" id="userMenuContainer">
+        <div class="user-menu-button" id="userMenuButton">
+          <i class="ri-user-line user-icon"></i>
+        </div>
+        <div class="user-dropdown" id="userDropdownMenu">
+          <a href="#" class="dropdown-item">
+            <div class="dropdown-icon">
+              <i class="ri-user-3-line"></i>
             </div>
-        </section>
+            <span>Meu Perfil</span>
+          </a>
+          <a href="#" class="dropdown-item">
+            <div class="dropdown-icon">
+              <i class="ri-star-line"></i>
+            </div>
+            <span>Minhas Avaliações</span>
+          </a>
+          <a href="#" class="dropdown-item">
+            <div class="dropdown-icon">
+              <i class="ri-heart-line"></i>
+            </div>
+            <span>Jogos Favoritos</span>
+          </a>
+          <a href="#" class="dropdown-item">
+            <div class="dropdown-icon">
+              <i class="ri-settings-3-line"></i>
+            </div>
+            <span>Configurações</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <div class="dropdown-icon">
+              <i class="ri-logout-box-line"></i>
+            </div>
+            <span>Sair</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero Banner -->
+  <section class="hero">
+    <img src="https://images.unsplash.com/photo-1608889825103-eb5b3bdf5ad7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="Destaque" class="hero-image">
+    <div class="container hero-content">
+      <div class="max-w-2xl">
+        <span class="hero-tag">Destaque da Semana</span>
+        <h1 class="hero-title"> Titulo do Jogo em destaque</h1>
+        <div class="hero-rating">
+          <div class="star-rating">
+            <i class="ri-star-fill star-filled"></i>
+            <i class="ri-star-fill star-filled"></i>
+            <i class="ri-star-fill star-filled"></i>
+            <i class="ri-star-fill star-filled"></i>
+            <i class="ri-star-half-fill star-half"></i>
+          </div>
+          <span class="rating-text">x.x/10 (x avaliações)</span>
+        </div>
+        <p class="hero-description">Aqui estaria a descricao do jogo de destaque da semana.</p>
+        <div class="hero-buttons">
+          <button class="hero-button primary-button">Ver Detalhes</button>
+          <button class="hero-button secondary-button">Avaliar Agora</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-indicators">
+      <button class="indicator active"></button>
+      <button class="indicator"></button>
+      <button class="indicator"></button>
+    </div>
+  </section>
+
+  <!-- Jogos Populares -->
+  <section class="popular-games">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Jogos Populares</h2>
+        <a href="#" class="view-all">
+          Ver todos
+          <i class="ri-arrow-right-line view-all-icon"></i>
+        </a>
+      </div>
+      <div class="games-grid">
+        <!-- Game Card 1 -->
+        <div class="game-card">
+          <div class="game-image-container">
+            <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Baldur's Gate 3" class="game-image">
+            <div class="game-genre">RPG</div>
+            <div class="quick-rate">
+              <div class="quick-rate-content">
+                <span class="quick-rate-label">Avaliação Rápida:</span>
+                <div class="custom-rating">
+                  <input type="radio" id="star5-1" name="rating-1" value="5">
+                  <label for="star5-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star4-1" name="rating-1" value="4">
+                  <label for="star4-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star3-1" name="rating-1" value="3">
+                  <label for="star3-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star2-1" name="rating-1" value="2">
+                  <label for="star2-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star1-1" name="rating-1" value="1">
+                  <label for="star1-1"><i class="ri-star-fill"></i></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="game-details">
+            <h3 class="game-title">Baldur's Gate 3</h3>
+            <div class="game-rating">
+              <div class="game-stars">
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-half-fill"></i>
+              </div>
+              <span class="game-rating-text">9.5/10 (3.254 avaliações)</span>
+            </div>
+            <div class="game-footer">
+              <span class="game-developer">Larian Studios</span>
+              <button class="rate-button">Avaliar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Card 2 -->
+         <div class="game-card">
+          <div class="game-image-container">
+            <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Baldur's Gate 3" class="game-image">
+            <div class="game-genre">RPG</div>
+            <div class="quick-rate">
+              <div class="quick-rate-content">
+                <span class="quick-rate-label">Avaliação Rápida:</span>
+                <div class="custom-rating">
+                  <input type="radio" id="star5-1" name="rating-1" value="5">
+                  <label for="star5-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star4-1" name="rating-1" value="4">
+                  <label for="star4-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star3-1" name="rating-1" value="3">
+                  <label for="star3-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star2-1" name="rating-1" value="2">
+                  <label for="star2-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star1-1" name="rating-1" value="1">
+                  <label for="star1-1"><i class="ri-star-fill"></i></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="game-details">
+            <h3 class="game-title">Baldur's Gate 3</h3>
+            <div class="game-rating">
+              <div class="game-stars">
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-half-fill"></i>
+              </div>
+              <span class="game-rating-text">9.5/10 (3.254 avaliações)</span>
+            </div>
+            <div class="game-footer">
+              <span class="game-developer">Larian Studios</span>
+              <button class="rate-button">Avaliar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Card 3 -->
+         <div class="game-card">
+          <div class="game-image-container">
+            <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Baldur's Gate 3" class="game-image">
+            <div class="game-genre">RPG</div>
+            <div class="quick-rate">
+              <div class="quick-rate-content">
+                <span class="quick-rate-label">Avaliação Rápida:</span>
+                <div class="custom-rating">
+                  <input type="radio" id="star5-1" name="rating-1" value="5">
+                  <label for="star5-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star4-1" name="rating-1" value="4">
+                  <label for="star4-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star3-1" name="rating-1" value="3">
+                  <label for="star3-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star2-1" name="rating-1" value="2">
+                  <label for="star2-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star1-1" name="rating-1" value="1">
+                  <label for="star1-1"><i class="ri-star-fill"></i></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="game-details">
+            <h3 class="game-title">Baldur's Gate 3</h3>
+            <div class="game-rating">
+              <div class="game-stars">
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-half-fill"></i>
+              </div>
+              <span class="game-rating-text">9.5/10 (3.254 avaliações)</span>
+            </div>
+            <div class="game-footer">
+              <span class="game-developer">Larian Studios</span>
+              <button class="rate-button">Avaliar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Card 4 -->
+         <div class="game-card">
+          <div class="game-image-container">
+            <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Baldur's Gate 3" class="game-image">
+            <div class="game-genre">RPG</div>
+            <div class="quick-rate">
+              <div class="quick-rate-content">
+                <span class="quick-rate-label">Avaliação Rápida:</span>
+                <div class="custom-rating">
+                  <input type="radio" id="star5-1" name="rating-1" value="5">
+                  <label for="star5-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star4-1" name="rating-1" value="4">
+                  <label for="star4-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star3-1" name="rating-1" value="3">
+                  <label for="star3-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star2-1" name="rating-1" value="2">
+                  <label for="star2-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star1-1" name="rating-1" value="1">
+                  <label for="star1-1"><i class="ri-star-fill"></i></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="game-details">
+            <h3 class="game-title">Baldur's Gate 3</h3>
+            <div class="game-rating">
+              <div class="game-stars">
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-half-fill"></i>
+              </div>
+              <span class="game-rating-text">9.5/10 (3.254 avaliações)</span>
+            </div>
+            <div class="game-footer">
+              <span class="game-developer">Larian Studios</span>
+              <button class="rate-button">Avaliar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Card 5 -->
+         <div class="game-card">
+          <div class="game-image-container">
+            <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Baldur's Gate 3" class="game-image">
+            <div class="game-genre">RPG</div>
+            <div class="quick-rate">
+              <div class="quick-rate-content">
+                <span class="quick-rate-label">Avaliação Rápida:</span>
+                <div class="custom-rating">
+                  <input type="radio" id="star5-1" name="rating-1" value="5">
+                  <label for="star5-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star4-1" name="rating-1" value="4">
+                  <label for="star4-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star3-1" name="rating-1" value="3">
+                  <label for="star3-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star2-1" name="rating-1" value="2">
+                  <label for="star2-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star1-1" name="rating-1" value="1">
+                  <label for="star1-1"><i class="ri-star-fill"></i></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="game-details">
+            <h3 class="game-title">Baldur's Gate 3</h3>
+            <div class="game-rating">
+              <div class="game-stars">
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-half-fill"></i>
+              </div>
+              <span class="game-rating-text">9.5/10 (3.254 avaliações)</span>
+            </div>
+            <div class="game-footer">
+              <span class="game-developer">Larian Studios</span>
+              <button class="rate-button">Avaliar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Card 6 -->
+        <div class="game-card">
+          <div class="game-image-container">
+            <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Baldur's Gate 3" class="game-image">
+            <div class="game-genre">RPG</div>
+            <div class="quick-rate">
+              <div class="quick-rate-content">
+                <span class="quick-rate-label">Avaliação Rápida:</span>
+                <div class="custom-rating">
+                  <input type="radio" id="star5-1" name="rating-1" value="5">
+                  <label for="star5-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star4-1" name="rating-1" value="4">
+                  <label for="star4-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star3-1" name="rating-1" value="3">
+                  <label for="star3-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star2-1" name="rating-1" value="2">
+                  <label for="star2-1"><i class="ri-star-fill"></i></label>
+                  <input type="radio" id="star1-1" name="rating-1" value="1">
+                  <label for="star1-1"><i class="ri-star-fill"></i></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="game-details">
+            <h3 class="game-title">Baldur's Gate 3</h3>
+            <div class="game-rating">
+              <div class="game-stars">
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-half-fill"></i>
+              </div>
+              <span class="game-rating-text">9.5/10 (3.254 avaliações)</span>
+            </div>
+            <div class="game-footer">
+              <span class="game-developer">Larian Studios</span>
+              <button class="rate-button">Avaliar</button>
+            </div>
+          </div>
+        </div>
