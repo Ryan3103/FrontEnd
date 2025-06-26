@@ -30,11 +30,12 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 20% 30%, rgba(244, 3, 84, 0.15) 0%, transparent 40%);
+  background: radial-gradient(circle at 20% 30%, rgba(87, 51, 239, 0.15) 0%, transparent 40%);
   pointer-events: none;
   z-index: -1;
 }
 
+/* Restante do seu CSS... */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -68,10 +69,9 @@ body::after {
   --white: #ffffff;
   --yellow: #fdcb6e;
   --green: #00b894;
-  --red: var(--color5);
   
   /* Variáveis para efeitos */
-  --glow: 0 0 15px rgba(80, 33, 239, 0.5);
+  --glow: 0 0 15px rgba(87, 51, 239, 0.5);
   --glow-hover: 0 0 25px rgba(124, 80, 244, 0.459);
   --shadow-sm: 0 4px 6px hwb(0 0% 100% / 0.1);
   --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.2);
@@ -96,8 +96,6 @@ body::after {
 .bg-color3 { background-color: var(--color3); }
 .bg-color4 { background-color: var(--color4); }
 .bg-color5 { background-color: var(--color5); }
-  
-
 
 /* Tipografia */
 h1, h2, h3, h4, h5, h6 {
@@ -121,7 +119,7 @@ header {
   top: 0;
   z-index: 1000;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(158, 0, 26, 0.3);
+  border-bottom: 1px solid rgba(87, 51, 239, 0.3);
   transition: var(--transition-slow);
 }
 
@@ -130,10 +128,77 @@ header.scrolled {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
+/* Ajustes para o cabeçalho */
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem; /* Espaço entre os elementos */
+}
+
+/* Container para os itens à direita */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Ajuste na barra de pesquisa */
+.search-bar {
+  position: relative;
+  width: 250px;
+  margin-right: 0; /* Removemos a margem direita */
+}
+
+/* Ajuste no container do menu do usuário */
+#userMenuContainer {
+  position: relative;
+}
+
+/* Garantir que os itens fiquem alinhados */
+.flex.items-center.gap-4 {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .search-bar {
+    width: 180px;
+  }
+  
+  .header-container {
+    flex-wrap: wrap;
+    padding: 0.5rem 1rem;
+  }
+  
+  .logo {
+    margin-right: auto;
+  }
+  
+  .header-right {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar {
+    width: 100%;
+  }
+  
+  .header-right {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .flex.items-center.gap-4 {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 
 .logo {
@@ -387,7 +452,7 @@ header.scrolled {
   backdrop-filter: blur(8px);
   border-radius: 16px;
   margin-left: 5%;
-  border: 1px solid rgba(244, 3, 84, 0.2);
+  border: 1px solid rgba(87, 51, 239, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
@@ -410,7 +475,7 @@ header.scrolled {
   line-height: 1.1;
   margin-bottom: 1.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  background: linear-gradient(to right, #fff, #ff9bb3);
+  background: linear-gradient(to right, var(--white), var(--color5));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -505,7 +570,7 @@ header.scrolled {
 
 .hero-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(244, 3, 84, 0.4);
+  box-shadow: 0 5px 15px rgba(87, 51, 239, 0.4);
 }
 
 .primary-button:hover {
@@ -698,7 +763,7 @@ header.scrolled {
 
 .game-card:hover {
   transform: translateY(-8px) rotateX(5deg) rotateY(5deg);
-  box-shadow: 0 25px 40px rgba(244, 3, 84, 0.2);
+  box-shadow: 0 25px 40px rgba(87, 51, 239, 0.2);
   border-color: var(--primary);
 }
 
@@ -740,13 +805,13 @@ header.scrolled {
   border-radius: 50px;
   font-weight: 600;
   z-index: 2;
-  box-shadow: 0 4px 15px rgba(244, 3, 84, 0.3);
+  box-shadow: 0 4px 15px rgba(87, 51, 239, 0.3);
   transition: var(--transition);
 }
 
 .game-card:hover .game-genre {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(244, 3, 84, 0.4);
+  box-shadow: 0 8px 25px rgba(87, 51, 239, 0.4);
 }
 
 .quick-rate {
@@ -876,7 +941,7 @@ header.scrolled {
 .rate-button:hover {
   background-color: var(--primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 3px 10px rgba(244, 3, 84, 0.3);
+  box-shadow: 0 3px 10px rgba(87, 51, 239, 0.3);
 }
 
 /* Efeitos e animações */
@@ -922,7 +987,7 @@ header.scrolled {
   display: inline-block;
   width: 50px;
   height: 50px;
-  border: 5px solid rgba(244, 3, 84, 0.3);
+  border: 5px solid rgba(87, 51, 239, 0.3);
   border-radius: 50%;
   border-top-color: var(--primary);
   animation: spin 1s ease-in-out infinite;
