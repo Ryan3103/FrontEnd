@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GameRank - Avaliador de Jogos</title>
+  <title>AtermiScore - Avaliador de Jogos</title>
   <style>
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,35 +78,53 @@
 
 <main>
   <!-- Hero Banner -->
-  <section class="hero">
-    <img src="https://images.unsplash.com/photo-1608889825103-eb5b3bdf5ad7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="Destaque" class="hero-image">
-    <div class="container hero-content">
-      <div class="max-w-2xl">
-        <span class="hero-tag">Destaque da Semana</span>
-        <h1 class="hero-title"> Titulo do Jogo em destaque</h1>
+  <section class="hero-banner">
+  <div class="hero-slide active">
+    <!-- Imagem de fundo com overlay -->
+    <div class="hero-background">
+      <img src="https://images.unsplash.com/photo-1608889825103-eb5b3bdf5ad7" alt="Destaque" class="hero-image">
+      <div class="hero-overlay"></div>
+    </div>
+    
+    <!-- Conteúdo centralizado -->
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-tag">DESTAQUE DA SEMANA</span>
+        <h1 class="hero-title">Título do Jogo em Destaque</h1>
+        
         <div class="hero-rating">
           <div class="star-rating">
-            <i class="ri-star-fill star-filled"></i>
-            <i class="ri-star-fill star-filled"></i>
-            <i class="ri-star-fill star-filled"></i>
-            <i class="ri-star-fill star-filled"></i>
-            <i class="ri-star-half-fill star-half"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-half-fill"></i>
           </div>
-          <span class="rating-text">x.x/10 (x avaliações)</span>
+          <span class="rating-text">x.x/xx (x.xxx avaliações)</span>
         </div>
-        <p class="hero-description">Aqui estaria a descricao do jogo de destaque da semana.</p>
+        
+        <p class="hero-description">Aqui estaria a descrição completa do jogo de destaque da semana com detalhes impressionantes sobre a jogabilidade e inovações.</p>
+        
         <div class="hero-buttons">
-          <button class="hero-button primary-button">Ver Detalhes</button>
-          <button class="hero-button secondary-button">Avaliar Agora</button>
+          <button class="hero-button primary-button">
+            <i class="ri-information-line"></i> Ver Detalhes
+          </button>
+          <button class="hero-button secondary-button">
+            <i class="ri-star-line"></i> Avaliar Agora
+          </button>
         </div>
       </div>
     </div>
+    
+    <!-- Spontinho (indicadores) em baixo -->
     <div class="hero-indicators">
       <button class="indicator active"></button>
       <button class="indicator"></button>
       <button class="indicator"></button>
+      <button class="indicator"></button>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Jogos Populares -->
   <section class="popular-games">
