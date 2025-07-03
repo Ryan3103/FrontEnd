@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("game-container");
     const MAX_DESC_LENGTH = 150;
-    const MAX_CARDS = 8; // <-- Adicionado: Limita o número de caixinhas a 8
+    const MAX_CARDS = 8;
 
     fetch("http://localhost:8080/api/games/cards")
         .then(res => res.json())
@@ -13,10 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             container.innerHTML = "";
 
-            // Limita os cards antes de iterar e criar os elementos
-            const limitedCards = cards.slice(0, MAX_CARDS); // <-- Adicionado: Pega apenas os primeiros 8 cards
+            const limitedCards = cards.slice(0, MAX_CARDS);
 
-            limitedCards.forEach(jogo => { // <-- Alterado: Itera sobre os cards limitados
+            limitedCards.forEach(jogo => {
                 let descricao = jogo.description_raw || jogo.description || "Sem descrição disponível.";
                 descricao = descricao.replace(/<[^>]*>/g, "");
 
@@ -27,11 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 const card = document.createElement("div");
                 card.className = "game-card";
 
-                // URL da imagem otimizada para tamanho 600x338
-                // Verifica se background_image existe e constrói a URL otimizada
+                // MODIFICAÇÃO AQUI: Pedindo imagem com 400px de largura e 250px de altura (proporção 16:10)
                 const optimizedImageUrl = jogo.background_image 
-                    ? jogo.background_image.replace('/media/', '/media/resize/600/-/') 
-                    : 'https://via.placeholder.com/600x338?text=Sem+Imagem'; // Fallback para placeholder com tamanho fixo
+                    ? jogo.background_image.replace('/media/', '/media/resize/400x250/-/') 
+                    : 'https://via.placeholder.com/400x250?text=Sem+Imagem'; // Fallback com a mesma proporção
 
                 card.innerHTML = `
                     <img src="${optimizedImageUrl}" alt="${jogo.name}" class="game-img">
