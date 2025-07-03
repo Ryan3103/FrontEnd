@@ -7,14 +7,13 @@
 
 html {
     scroll-behavior: smooth;
-    /* Define a base font-size para facilitar o uso de rem */
     font-size: 16px; 
 }
 
 body {
-    font-family: 'Poppins', sans-serif; /* Certifique-se que 'Poppins' está importado no HTML */
-    background-color: var(--dark); /* Usa a variável CSS para consistência */
-    color: var(--lighter); /* Usa a variável CSS para consistência */
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--dark);
+    color: var(--lighter);
     min-height: 100vh;
     padding-top: 80px; /* Ajusta o padding para compensar o header fixo */
     line-height: 1.7;
@@ -31,7 +30,6 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Gradiente radial para um "brilho" no canto superior esquerdo */
     background: radial-gradient(circle at 20% 30%, rgba(87, 51, 239, 0.15) 0%, transparent 40%);
     pointer-events: none; /* Permite interação com elementos por baixo */
     z-index: -1; /* Garante que fique atrás do conteúdo */
@@ -54,11 +52,19 @@ body::after {
     /* Tons de Cinza e Cores Neutras */
     --dark: #0f0f13; /* Cor de fundo principal */
     --darker: #0a0a0d; /* Fundo mais escuro, para gradientes ou elementos sobrepostos */
-    --dark-gray: #1e1e24; /* Cinza escuro para componentes, inputs */
+    --dark-gray: #1e1e24; /* Cinza escuro para componentes, inputs, backgrounds de cards */
     --medium-gray: #3d3d45; /* Cinza médio para bordas, divisores */
     --light-gray: #6d6d7a; /* Cinza claro para texto secundário, placeholders */
     --lighter: #e1e1e1; /* Texto principal claro */
     --white: #ffffff; /* Branco puro */
+
+    /* Variáveis adicionais para consistência na seção 'Comunidade' */
+    --color-dark-200: var(--dark); /* Mapeado para --dark, ajuste se precisar de um tom diferente */
+    --color-dark-300: var(--dark-gray); /* Mapeado para --dark-gray, ajuste se precisar de um tom diferente */
+    --color-border: var(--medium-gray);
+    --color-primary-light: var(--color4);
+    --color-light: var(--lighter);
+    --color-text-secondary: var(--light-gray);
 
     /* Cores de Feedback/Auxiliares */
     --yellow: #fdcb6e; /* Estrelas, avisos */
@@ -66,13 +72,16 @@ body::after {
     /* --red: #e74c3c; para erros, alertas */
 
     /* Efeitos e Transições */
-    --glow: 0 0 15px rgba(87, 51, 239, 0.5); /* Sombra de brilho para elementos interativos */
-    --glow-hover: 0 0 25px rgba(124, 80, 244, 0.459); /* Brilho mais intenso no hover */
-    --shadow-sm: 0 4px 6px hsla(0, 0%, 0%, 0.1); /* Sombra pequena (HSLA para transparência) */
-    --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.2); /* Sombra média */
-    --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.3); /* Sombra grande */
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transição padrão (ease-out-back) */
-    --transition-slow: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); /* Transição mais lenta */
+    --glow: 0 0 15px rgba(87, 51, 239, 0.5);
+    --glow-hover: 0 0 25px rgba(124, 80, 244, 0.459);
+    --shadow-sm: 0 4px 6px hsla(0, 0%, 0%, 0.1);
+    --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.3);
+    /* Sombras para cards da comunidade, mapeadas para as existentes */
+    --shadow-small: var(--shadow-sm);
+    --shadow-medium: var(--shadow-md);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-slow: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 
     /* Gradientes */
     --gradient-primary: linear-gradient(45deg, var(--color2), var(--color5));
@@ -112,7 +121,7 @@ body::after {
 .flex { display: flex; }
 .items-center { align-items: center; }
 .justify-between { justify-content: space-between; }
-.gap-4 { gap: 1rem; } /* Define um gap base para flexbox/grid */
+.gap-4 { gap: 1rem; }
 .gap-8 { gap: 2rem; }
 
 /* Tipografia Base */
@@ -127,17 +136,16 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Pacifico', cursive;
 }
 
-/* O logo agora tem uma regra mais específica para não conflitar com h3, h4 etc. */
 .logo {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.8rem;
-    color: var(--white); /* Fallback color */
+    color: var(--white);
     text-decoration: none;
     font-weight: 700;
-    background: var(--gradient-primary); /* Gradiente de texto */
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent; /* Torna o texto transparente para mostrar o gradiente */
+    color: transparent;
     position: relative;
     transition: var(--transition);
 }
@@ -149,8 +157,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* --- Header Section --- */
 header {
-    background: rgba(15, 15, 19, 0.85); /* Fundo escuro com transparência */
-    backdrop-filter: blur(12px); /* Efeito glassmorphism */
+    background: rgba(15, 15, 19, 0.85);
+    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: 1rem 0;
     position: fixed;
@@ -158,12 +166,12 @@ header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid rgba(87, 51, 239, 0.3); /* Borda inferior sutil */
+    border-bottom: 1px solid rgba(87, 51, 239, 0.3);
     transition: var(--transition-slow);
 }
 
 header.scrolled {
-    padding: 0.75rem 0; /* Padding menor quando "scrolled" */
+    padding: 0.75rem 0;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
@@ -171,7 +179,7 @@ header.scrolled {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1.5rem; /* Aumentado para melhor espaçamento */
+    gap: 1.5rem;
 }
 
 /* Agrupando elementos à direita do header */
@@ -184,17 +192,17 @@ header.scrolled {
 /* Navegação Principal */
 .main-nav {
     display: flex;
-    gap: 1.8rem; /* Aumentado o espaçamento entre os links */
+    gap: 1.8rem;
 }
 
 .nav-link {
     color: var(--lighter);
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.95rem; /* ~15.2px */
+    font-size: 0.95rem;
     transition: var(--transition);
     position: relative;
-    padding: 0.5rem 0; /* Para melhor área de clique e posicionamento do underline */
+    padding: 0.5rem 0;
 }
 
 .nav-link:hover,
@@ -226,7 +234,7 @@ header.scrolled {
 
 .search-input {
     width: 100%;
-    padding: 0.6rem 1rem 0.6rem 2.5rem; /* Espaço para o ícone */
+    padding: 0.6rem 1rem 0.6rem 2.5rem;
     border-radius: 50px;
     border: none;
     background-color: var(--dark-gray);
@@ -241,7 +249,7 @@ header.scrolled {
 
 .search-input:focus {
     outline: none;
-    box-shadow: 0 0 0 2px var(--primary); /* Indicador de foco */
+    box-shadow: 0 0 0 2px var(--primary);
 }
 
 .search-icon {
@@ -281,7 +289,7 @@ header.scrolled {
 .user-dropdown {
     position: absolute;
     right: 0;
-    top: 50px; /* Posição inicial abaixo do botão */
+    top: 50px;
     background-color: var(--dark-gray);
     border-radius: 12px;
     box-shadow: var(--shadow-lg);
@@ -289,7 +297,6 @@ header.scrolled {
     padding: 0.5rem 0;
     opacity: 0;
     visibility: hidden;
-    /* Transição mais suave para os 3 estados */
     transition: opacity 0.3s ease, visibility 0.3s ease, top 0.3s ease;
     z-index: 100;
     border: 1px solid var(--medium-gray);
@@ -298,10 +305,10 @@ header.scrolled {
 
 /* Efeito de hover no contêiner do menu para abri-lo */
 #userMenuContainer:hover .user-dropdown,
-.user-dropdown:hover { /* Mantém o dropdown aberto ao passar o mouse sobre ele */
+.user-dropdown.show-dropdown { /* Alterado para usar a classe 'show-dropdown' do JS */
     opacity: 1;
     visibility: visible;
-    top: 45px; /* Levemente mais alto para um efeito de "pop up" */
+    top: 45px;
 }
 
 .dropdown-item {
@@ -317,14 +324,14 @@ header.scrolled {
 .dropdown-item:hover {
     background-color: var(--medium-gray);
     color: var(--white);
-    padding-left: 1.75rem; /* Feedback visual no hover */
+    padding-left: 1.75rem;
 }
 
 .dropdown-icon {
     margin-right: 1rem;
     color: var(--light-gray);
     font-size: 1.1rem;
-    width: 20px; /* Largura fixa para alinhamento consistente */
+    width: 20px;
     text-align: center;
 }
 
@@ -335,14 +342,12 @@ header.scrolled {
 }
 
 /* --- Mobile Menu & Responsividade do Header --- */
-
-/* Botão do menu mobile (hambúrguer) */
 .mobile-menu-button {
-    display: none; /* Escondido por padrão em telas maiores */
+    display: none;
     background: none;
     border: none;
     color: var(--white);
-    font-size: 1.8rem; /* Tamanho ligeiramente maior para melhor toque */
+    font-size: 1.8rem;
     cursor: pointer;
     transition: var(--transition);
 }
@@ -353,12 +358,12 @@ header.scrolled {
 
 @media (max-width: 1024px) {
     .mobile-menu-button {
-        display: block; /* Mostra o ícone de hambúrguer */
+        display: block;
     }
 
     .main-nav {
         position: fixed;
-        top: 80px; /* Abaixo do header */
+        top: 80px;
         left: 0;
         width: 100%;
         background: var(--darker);
@@ -366,67 +371,62 @@ header.scrolled {
         align-items: center;
         padding: 2rem 0;
         gap: 2rem;
-        /* Efeito de abertura circular */
-        clip-path: circle(0px at 90% -10%); /* Escondido por padrão */
+        clip-path: circle(0px at 90% -10%);
         transition: clip-path 0.7s ease-out;
-        pointer-events: none; /* Previne interação quando fechado */
-        z-index: 999; /* Abaixo do header, acima de outro conteúdo */
+        pointer-events: none;
+        z-index: 999;
     }
 
     .main-nav.open {
-        clip-path: circle(1500px at 90% -10%); /* Expande para mostrar o menu */
-        pointer-events: all; /* Permite interação quando aberto */
+        clip-path: circle(1500px at 90% -10%);
+        pointer-events: all;
     }
 
-    /* Oculta a navegação principal padrão quando o menu mobile está ativo */
     .header-container .main-nav {
-        display: none; /* Esconde a nav principal em telas menores que 1024px */
+        display: none;
     }
 }
 
-
 @media (max-width: 768px) {
     .search-bar {
-        width: 180px; /* Ajusta o tamanho da barra de busca no tablet */
+        width: 180px;
     }
 
     .header-container {
-        flex-wrap: wrap; /* Permite que os itens quebrem linha */
+        flex-wrap: wrap;
         padding: 0.5rem 1rem;
     }
 
     .logo {
-        margin-right: auto; /* Empurra os outros itens para a direita */
+        margin-right: auto;
     }
 
     .header-right {
-        order: 3; /* Move para uma nova linha abaixo do logo e nav */
+        order: 3;
         width: 100%;
-        justify-content: center; /* Centraliza a barra de busca e o menu do usuário */
+        justify-content: center;
         margin-top: 0.5rem;
     }
 
-    /* Garante que o menu do usuário fique alinhado quando o search bar quebrar linha */
     .header-right .flex.items-center.gap-4 {
         justify-content: center;
-        width: 100%; /* Força a ocupar a largura total para centralizar */
+        width: 100%;
     }
 }
 
 @media (max-width: 480px) {
     .search-bar {
-        width: 100%; /* Barra de busca ocupa largura total em telas muito pequenas */
+        width: 100%;
     }
 
     .header-right {
-        flex-direction: column; /* Empilha os itens verticalmente */
+        flex-direction: column;
         gap: 0.5rem;
     }
 
-    /* Ajuste para alinhar corretamente no mobile */
     .flex.items-center.gap-4 {
         width: 100%;
-        justify-content: center; /* Centraliza mesmo se empilhado */
+        justify-content: center;
     }
 }
 
@@ -434,11 +434,11 @@ header.scrolled {
 /* --- Hero Banner Section --- */
 .hero-banner {
     position: relative;
-    height: 100vh; /* Altura total da viewport */
-    min-height: 700px; /* Garante altura mínima em telas menores */
+    height: 100vh;
+    min-height: 700px;
     width: 100%;
     overflow: hidden;
-    margin-bottom: 3rem; /* Espaço abaixo do banner */
+    margin-bottom: 3rem;
 }
 
 .hero-slide {
@@ -458,9 +458,9 @@ header.scrolled {
 .hero-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Garante que a imagem cubra o contêiner */
+    object-fit: cover;
     object-position: center;
-    animation: zoomEffect 20s infinite alternate; /* Animação de zoom sutil */
+    animation: zoomEffect 20s infinite alternate;
 }
 
 @keyframes zoomEffect {
@@ -476,24 +476,13 @@ header.scrolled {
     height: 100%;
     background: linear-gradient(
         to top,
-        rgba(15, 15, 19, 0.95) 0%, /* Escuro na parte inferior */
-        rgba(87, 51, 239, 0.3) 50%, /* Tonalidade roxa no meio */
-        rgba(15, 15, 19, 0.7) 100% /* Escuro ligeiramente mais claro no topo */
+        rgba(15, 15, 19, 0.95) 0%,
+        rgba(87, 51, 239, 0.3) 50%,
+        rgba(15, 15, 19, 0.7) 100%
     );
 }
 
 /* --- Hero Banner Section - Content & Interactions --- */
-
-/* Contêiner principal para o conteúdo do hero, centralizando-o */
-.hero-container {
-    position: relative;
-    height: 100%; /* Ocupa 100% da altura do .hero-banner */
-    display: flex;
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
-    z-index: 10; /* Garante que o conteúdo fique acima do background */
-    padding: 0 2rem;
-}
 
 /* Conteúdo central do Hero */
 .hero-content {
@@ -501,7 +490,6 @@ header.scrolled {
     width: 100%;
     padding: 3rem;
     text-align: center;
-    /* Ajuste para centralizar visualmente o conteúdo dentro do flex container */
     margin-top: -50px; 
 }
 
@@ -517,7 +505,7 @@ header.scrolled {
     text-transform: uppercase;
     border-radius: 50px;
     margin-bottom: 1.5rem;
-    animation: pulse 2s infinite; /* Efeito de pulsação suave */
+    animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
@@ -528,25 +516,24 @@ header.scrolled {
 
 /* Título principal do Hero */
 .hero-title {
-    font-size: clamp(3rem, 8vw, 6rem); /* Tamanho de fonte responsivo e fluido */
+    font-size: clamp(3rem, 8vw, 6rem);
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 1.5rem;
-    /* Gradiente de texto do branco para a cor de acento */
     background: linear-gradient(to right, var(--white), var(--color5));
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent; /* Torna o texto transparente para mostrar o gradiente */
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Sombra para profundidade */
+    color: transparent;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
 /* Seção de avaliação no Hero */
 .hero-rating {
     display: flex;
-    flex-direction: column; /* Estrela e texto empilhados */
+    flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    margin: 2rem 0; /* Margem consistente */
+    margin: 2rem 0;
 }
 
 /* Contêiner das estrelas */
@@ -556,9 +543,9 @@ header.scrolled {
 }
 
 .star-rating i {
-    font-size: 2rem; /* Estrelas maiores para impacto */
+    font-size: 2rem;
     color: var(--yellow);
-    text-shadow: 0 0 10px rgba(253, 203, 110, 0.7); /* Brilho nas estrelas */
+    text-shadow: 0 0 10px rgba(253, 203, 110, 0.7);
 }
 
 /* Texto da avaliação (ex: "4.8/5 Estrelas") */
@@ -569,13 +556,13 @@ header.scrolled {
     background: rgba(0, 0, 0, 0.3);
     padding: 0.5rem 1.2rem;
     border-radius: 50px;
-    display: inline-block; /* Permite que o padding e a borda arredondada funcionem */
+    display: inline-block;
 }
 
 /* Descrição do Hero */
 .hero-description {
     max-width: 700px;
-    margin: 0 auto 2.5rem; /* Centraliza e adiciona espaço abaixo */
+    margin: 0 auto 2.5rem;
     font-size: 1.2rem;
     line-height: 1.7;
     color: rgba(255,255,255,0.9);
@@ -587,7 +574,7 @@ header.scrolled {
     justify-content: center;
     gap: 1.5rem;
     margin-top: 2rem;
-    flex-wrap: wrap; /* Permite que os botões quebrem linha em telas menores */
+    flex-wrap: wrap;
 }
 
 /* Estilo base para todos os botões do Hero */
@@ -596,16 +583,16 @@ header.scrolled {
     font-size: 1.1rem;
     font-weight: 600;
     border-radius: 50px;
-    transition: all 0.4s ease; /* Transição mais suave */
+    transition: all 0.4s ease;
     display: inline-flex;
     align-items: center;
     gap: 0.7rem;
-    position: relative; /* Para o efeito ripple */
-    overflow: hidden; /* Para o efeito ripple */
-    z-index: 1; /* Para o efeito ripple */
-    text-decoration: none; /* Remove underline padrão do link */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    text-decoration: none;
     cursor: pointer;
-    border: none; /* Remove borda padrão do botão */
+    border: none;
 }
 
 /* Pseudo-elemento para o gradiente de fundo dos botões */
@@ -616,66 +603,55 @@ header.scrolled {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--gradient-primary); /* Usa a variável de gradiente */
+    background: var(--gradient-primary);
     z-index: -1;
     transition: opacity 0.4s;
 }
 
 /* Botão primário */
 .primary-button {
-    background-color: var(--primary); /* Fallback se o gradiente não carregar */
+    background-color: var(--primary);
     color: var(--white);
     box-shadow: 0 5px 20px rgba(87, 51, 239, 0.5);
 }
 
 .primary-button::before {
-    opacity: 1; /* Garante que o gradiente seja visível no botão primário */
+    opacity: 1;
 }
 
 /* Botão secundário */
 .secondary-button {
     background: rgba(255,255,255,0.1);
     color: var(--white);
-    backdrop-filter: blur(10px); /* Efeito glassmorphism */
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.2);
 }
 
 .secondary-button::before {
-    opacity: 0; /* Esconde o gradiente por padrão no secundário */
+    opacity: 0;
 }
 
 .secondary-button:hover::before {
-    opacity: 0.2; /* Mostra um gradiente sutil no hover */
+    opacity: 0.2;
 }
 
 /* Efeito de hover geral para os botões */
 .hero-button:hover {
-    transform: translateY(-5px); /* Levanta o botão */
-    box-shadow: 0 10px 25px rgba(87, 51, 239, 0.6); /* Sombra mais intensa no hover */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(87, 51, 239, 0.6);
 }
 
 /* Hover específico para o botão primário */
 .primary-button:hover {
-    background-color: var(--primary-hover); /* Altera a cor de fundo no hover (fallback) */
+    background-color: var(--primary-hover);
 }
 
 /* Hover específico para o botão secundário */
 .secondary-button:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Ajusta o fundo no hover para o secundário */
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Efeito Ripple no clique do botão */
-@keyframes ripple {
-    0% {
-        transform: scale(0, 0) translate(-50%, -50%);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(20, 20) translate(-50%, -50%); /* Aumenta o tamanho para cobrir o botão */
-        opacity: 0;
-    }
-}
-
 .hero-button::after {
     content: '';
     position: absolute;
@@ -703,7 +679,7 @@ header.scrolled {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    z-index: 20; /* Garante que os indicadores fiquem visíveis */
+    z-index: 20;
 }
 
 .indicator {
@@ -724,7 +700,7 @@ header.scrolled {
 /* --- Responsividade do Hero Banner --- */
 @media (max-width: 1024px) {
     .hero-content {
-        margin-left: 0; /* Garante que o conteúdo esteja centralizado */
+        margin-left: 0;
         max-width: 100%;
     }
 }
@@ -732,16 +708,16 @@ header.scrolled {
 @media (max-width: 768px) {
     .hero-content {
         padding: 2rem 1.5rem;
-        margin-top: 0; /* Remove a margem negativa em telas pequenas */
+        margin-top: 0;
     }
 
     .hero-buttons {
-        flex-direction: column; /* Empilha os botões verticalmente */
+        flex-direction: column;
         gap: 1rem;
     }
 
     .hero-button {
-        width: 100%; /* Botões ocupam a largura total */
+        width: 100%;
         justify-content: center;
         padding: 1rem;
     }
@@ -760,23 +736,15 @@ header.scrolled {
     }
 
     .hero-title {
-        font-size: clamp(2.5rem, 6vw, 5rem); /* Ajusta o clamp para telas menores */
+        font-size: clamp(2.5rem, 6vw, 5rem);
     }
 
-    /* .hero no seu código original estava como hero-banner, 
-       ajustei para .hero-banner para consistência com a primeira parte,
-       mas verifique se o seu HTML usa "hero" ou "hero-banner" */
     .hero-banner { 
-        height: auto; /* Altura flexível em telas menores */
+        height: auto;
         min-height: 500px;
-        padding-top: 100px; /* Ajusta para o header fixo */
+        padding-top: 100px;
         padding-bottom: 50px;
     }
-
-    /* Oculta a search bar em telas menores se desejar */
-    /* .search-bar {
-        display: none; 
-    } */
 }
 
 @media (max-width: 480px) {
@@ -784,13 +752,9 @@ header.scrolled {
        se necessário, mas os 768px já cobrem bem muitos casos. */
 }
 
+/* --- Seções de Conteúdo --- */
 
-/* --- Popular Games Section --- */
-.popular-games {
-    padding: 4rem 0;
-    background-color: var(--dark);
-}
-
+/* Estilos comuns para títulos de seção */
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -802,7 +766,7 @@ header.scrolled {
     font-size: 2rem;
     position: relative;
     padding-bottom: 0.5rem;
-    color: var(--white); /* Garante a cor do título consistente */
+    color: var(--white);
 }
 
 .section-title::after {
@@ -836,62 +800,86 @@ header.scrolled {
 }
 
 .view-all:hover .view-all-icon {
-    transform: translateX(3px); /* Desliza o ícone no hover */
+    transform: translateX(3px);
+}
+
+/* --- Cards Base (Jogos, Lançamentos, Top Avaliados, Comunidade) --- */
+.game-card, .release-card, .top-game-card, .community-card { /* Adicionado .community-card aqui */
+    background-color: var(--dark-gray);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Adicionado border-color */
+    box-shadow: var(--shadow-md); /* Usando variável de sombra padrão */
+    border: 1px solid var(--medium-gray); /* Borda padrão */
+}
+
+.game-card:hover, .release-card:hover, .top-game-card:hover, .community-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    border-color: var(--primary); /* Borda primária no hover para todos */
+}
+
+/* Estilos comuns para imagens de cards */
+.game-image, .release-image, .top-game-image, .community-image { /* Adicionado .community-image */
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+
+/* --- Popular Games Section --- */
+.popular-games {
+    padding: 4rem 0;
+    background-color: var(--dark);
 }
 
 /* Grid de jogos */
 .games-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Padrão: coluna única para telas menores */
+    grid-template-columns: 1fr;
     gap: 1.5rem;
 }
 
 /* Responsividade do Grid */
 @media (min-width: 640px) {
     .games-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 colunas para tablets */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (min-width: 1024px) {
     .games-grid {
-        grid-template-columns: repeat(3, 1fr); /* 3 colunas para desktops */
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (min-width: 1280px) {
     .games-grid {
-        grid-template-columns: repeat(4, 1fr); /* 4 colunas para telas grandes */
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
 @media (max-width: 480px) {
     .games-grid {
-        grid-template-columns: 1fr; /* Garante coluna única para telas muito pequenas */
+        grid-template-columns: 1fr;
     }
 
     .game-card {
-        max-width: 320px; /* Limita a largura do card em telas pequenas */
-        margin: 0 auto; /* Centraliza os cards individualmente */
+        max-width: 320px;
+        margin: 0 auto;
     }
 }
 
-/* --- Game Cards com Efeito 3D --- */
-.game-card {
-    background-color: var(--dark-gray);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: var(--transition-slow);
-    border: 1px solid var(--medium-gray);
-    transform-style: preserve-3d; /* Habilita transforms 3D nos filhos */
-    transform: perspective(1000px); /* Define a perspectiva para o efeito 3D */
-    box-shadow: var(--shadow-md); /* Adicionado uma sombra base */
+/* --- Game Cards com Efeito 3D (Específico para Popular Games) --- */
+.game-card { /* Sobrescreve estilos base do card para adicionar 3D */
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
 }
 
-.game-card:hover {
-    transform: translateY(-8px) rotateX(5deg) rotateY(5deg); /* Inclinação 3D sutil */
-    box-shadow: 0 25px 40px rgba(87, 51, 239, 0.2); /* Sombra de brilho no hover */
-    border-color: var(--primary); /* Borda primária no hover */
+.game-card:hover { /* Sobrescreve estilos base do card para 3D no hover */
+    transform: translateY(-8px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 25px 40px rgba(87, 51, 239, 0.2);
+    border-color: var(--primary);
 }
 
 .game-image-container {
@@ -910,16 +898,18 @@ header.scrolled {
     z-index: 1;
 }
 
-.game-image {
+/* Em seu arquivo styles.css */
+.game-img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
-    object-position: center;
-    transition: transform 0.5s;
+    /* Define uma altura fixa ou máxima para as imagens dentro dos cards,
+       ajustando conforme o design desejado. */
+    height: 200px; /* Ou uma altura específica para o seu layout */
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
+    display: block; /* Remove possíveis espaços extras abaixo da imagem */
 }
 
 .game-card:hover .game-image {
-    transform: scale(1.05); /* Zoom na imagem no hover */
+    transform: scale(1.05);
 }
 
 /* Gênero do jogo (tag) */
@@ -933,197 +923,570 @@ header.scrolled {
     padding: 0.5rem 1rem;
     border-radius: 50px;
     font-weight: 600;
-    z-index: 2; /* Acima da imagem e overlay */
+    z-index: 2;
     box-shadow: 0 4px 15px rgba(87, 51, 239, 0.3);
     transition: var(--transition);
 }
 
 .game-card:hover .game-genre {
-    transform: translateY(-5px); /* Levanta a tag de gênero no hover */
+    transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(87, 51, 239, 0.4);
 }
+
+/* Avaliação Rápida na Imagem do Card */
 .quick-rate {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-  padding: 1.5rem 1rem 1rem;
-  opacity: 0; /* Hidden by default */
-  transition: opacity 0.3s;
-  z-index: 2;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    padding: 1.5rem 1rem 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 2;
+    text-align: center; /* Centraliza o conteúdo */
 }
 
 .game-card:hover .quick-rate {
-  opacity: 1; /* Show quick rate on hover */
+    opacity: 1;
 }
 
 .quick-rate-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center; /* Centraliza itens dentro do content */
 }
 
 .quick-rate-label {
-  color: var(--white);
-  font-weight: 500;
-  font-size: 0.9rem;
+    color: var(--white);
+    font-weight: 500;
+    font-size: 0.9rem;
 }
 
 .custom-rating {
-  display: flex;
-  justify-content: center;
-  gap: 0.25rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    flex-direction: row-reverse; /* Inverte a ordem para CSS stars */
 }
 
 .custom-rating input {
-  display: none; /* Hide actual radio inputs */
+    display: none;
 }
 
 .custom-rating label {
-  font-size: 1.25rem;
-  color: var(--light-gray);
-  cursor: pointer;
-  transition: var(--transition);
-  position: relative;
+    font-size: 1.25rem;
+    color: var(--light-gray);
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
 }
 
-.custom-rating label:hover {
-  color: var(--yellow);
-  transform: scale(1.1);
-}
-
+.custom-rating label:hover,
 .custom-rating label:hover ~ label {
-  color: var(--light-gray) !important; /* Ensure subsequent stars revert to original color */
+    color: var(--yellow);
+    transform: scale(1.1);
 }
 
+/* Garante que as estrelas selecionadas fiquem amarelas */
 .custom-rating input:checked ~ label {
-  color: var(--yellow);
-  text-shadow: 0 0 10px rgba(253, 203, 110, 0.5);
+    color: var(--yellow);
+    text-shadow: 0 0 10px rgba(253, 203, 110, 0.5);
 }
+
+/* Garante que estrelas subsequentes fiquem cinzas */
+.custom-rating input:checked ~ label:hover {
+    color: var(--yellow); /* Mantém amarela ao passar por cima de uma já selecionada */
+}
+.custom-rating input:checked ~ label:before {
+    color: var(--yellow);
+}
+
 
 .game-details {
-  padding: 1.25rem;
+    padding: 1.25rem;
 }
 
 .game-title {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; /* Truncate long titles */
-  color: var(--white); /* Ensure title is white */
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--white);
 }
 
 .game-rating {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .game-stars {
-  display: flex;
-  color: var(--yellow);
-  gap: 0.1rem;
-  font-size: 0.9rem;
+    display: flex;
+    color: var(--yellow);
+    gap: 0.1rem;
+    font-size: 0.9rem;
 }
 
 .game-rating-text {
-  color: var(--light-gray);
-  font-size: 0.85rem;
-  margin-left: 0.5rem;
+    color: var(--light-gray);
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
 }
 
 .game-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .game-developer {
-  color: var(--light-gray);
-  font-size: 0.85rem;
-  font-style: italic;
+    color: var(--light-gray);
+    font-size: 0.85rem;
+    font-style: italic;
 }
 
 .rate-button {
-  background-color: var(--primary);
-  color: var(--white);
-  padding: 0.5rem 1.25rem;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  white-space: nowrap;
-  transition: var(--transition);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .rate-button::before {
-  content: '★'; /* Star icon */
-  font-size: 0.9rem;
+    content: '★';
+    font-size: 0.9rem;
 }
 
 .rate-button:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 3px 10px rgba(87, 51, 239, 0.3);
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(87, 51, 239, 0.3);
+}
+
+/* --- Next Releases Section --- */
+.upcoming-releases { /* Adicionado para completar a seção */
+    padding: 4rem 0;
+    background-color: var(--dark);
+}
+
+.releases-slider {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.release-card {
+    /* Herda estilos de .game-card, .release-card, etc. */
+    position: relative; /* Para posicionamento da data */
+}
+
+.release-date {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: var(--medium-gray);
+    color: var(--white);
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    line-height: 1.2;
+    z-index: 2;
+}
+
+.release-day {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.release-month {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.release-info {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.release-title {
+    font-size: 1.25rem;
+    margin: 0; /* Remove margem padrão de h3 */
+    color: var(--white);
+}
+
+.release-platforms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.platform-tag {
+    background: var(--light-gray);
+    color: var(--white);
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.release-wishlist {
+    margin-top: 0.5rem;
+}
+
+.wishlist-button {
+    background: none;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.wishlist-button i {
+    font-size: 1rem;
+}
+
+.wishlist-button:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+
+/* --- Top Rated Section --- */
+.top-rated { /* Adicionado para completar a seção */
+    padding: 4rem 0;
+    background-color: var(--dark);
+}
+
+.top-rated-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.top-game-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-game-rank {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.top-game-info {
+    padding: 15px;
+    color: var(--white);
+    flex-grow: 1; /* Permite que o info cresça */
+}
+
+.top-game-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+}
+
+.top-game-rating {
+    display: flex;
+    align-items: center;
+}
+
+.top-game-stars {
+    display: flex;
+    color: var(--yellow);
+    font-size: 0.9rem;
+    gap: 0.1rem;
+}
+
+.top-game-stars i {
+    color: var(--yellow);
+    margin-right: 2px;
+}
+
+.top-game-score {
+    color: var(--light-gray);
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
+    font-weight: 600;
+}
+
+/* --- Seção da Comunidade --- */
+.community-section {
+    padding: 4rem 0;
+    background-color: var(--dark); /* Usando variável existente */
+}
+
+.community-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.community-card {
+    /* Herda estilos comuns de cards */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Imagem do card da comunidade - herdado de .game-image, etc. */
+/* .community-image { /* Estilo já definido na seção de common card styles */
+
+.community-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.community-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary); /* Usando variável existente --primary */
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.community-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white); /* Usando variável existente --white */
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+}
+
+.community-excerpt {
+    font-size: 0.95rem;
+    color: var(--lighter); /* Usando variável existente --lighter */
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+}
+
+.community-link {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.3s ease;
+}
+
+.community-link:hover {
+    color: var(--secondary); /* Usando variável existente --secondary */
+}
+
+.community-link i {
+    font-size: 1rem;
+}
+
+/* --- Footer Section --- */
+.footer {
+    background-color: var(--darker);
+    color: var(--lighter);
+    padding: 40px 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: var(--white);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-link {
+    color: var(--light-gray);
+    text-decoration: none;
+    display: block;
+    margin: 5px 0;
+    transition: color 0.3s;
+}
+
+.footer-link:hover {
+    color: var(--primary);
+}
+
+.footer-social .social-link {
+    margin-right: 10px;
+    color: var(--lighter);
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+.footer-social .social-link:hover {
+    color: var(--primary);
+}
+
+.newsletter-input {
+    padding: 8px;
+    width: calc(70% - 2px);
+    border: none;
+    border-radius: 6px 0 0 6px;
+    background-color: var(--medium-gray);
+    color: var(--white);
+}
+
+.newsletter-button {
+    padding: 8px 12px;
+    background-color: var(--primary);
+    border: none;
+    border-radius: 0 6px 6px 0;
+    color: var(--white);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.newsletter-button:hover {
+    background-color: var(--primary-hover);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--medium-gray);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.footer-copyright {
+    font-size: 0.9rem;
+    color: var(--light-gray);
+}
+
+.footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.legal-link {
+    color: var(--light-gray);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.legal-link:hover {
+    color: var(--primary);
+}
+
+/* Footer Responsiveness */
+@media (max-width: 768px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .legal-link {
+        margin-left: 0;
+        margin-top: 10px;
+    }
 }
 
 /* --- Animations --- */
+/* Agrupadas no final para melhor visibilidade de todas as animações */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 @keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(20, 20);
-    opacity: 0;
-  }
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(20, 20);
+        opacity: 0;
+    }
 }
 
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+    from { width: 0 }
+    to { width: 100% }
 }
 
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: var(--primary) }
+    from, to { border-color: transparent }
+    50% { border-color: var(--primary) }
 }
 
 .typewriter {
-  overflow: hidden;
-  border-right: 3px solid var(--primary); /* Simulates typing cursor */
-  white-space: nowrap;
-  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    overflow: hidden;
+    border-right: 3px solid var(--primary);
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
 /* Loader */
 .loader {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(87, 51, 239, 0.3);
-  border-radius: 50%;
-  border-top-color: var(--primary);
-  animation: spin 1s ease-in-out infinite;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(87, 51, 239, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary);
+    animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* Glow effect on interactive elements on hover */
@@ -1131,335 +1494,5 @@ header.scrolled {
 .hero-button:hover,
 .game-card:hover,
 .rate-button:hover {
-  filter: brightness(1.1); /* Subtle brightness increase */
-}
-
-/* --- Section Headers --- */
-/* (Already well-defined, consolidating for clarity) */
-/* Moved from utilities section for better organization with content */
-
-/* --- Game Card / Release / Top Game / News Card Base Styles --- */
-/* Consolidated common card styles to reduce repetition */
-.game-card, .release-card, .top-game-card, .news-card {
-  background-color: var(--dark-gray); /* Using variable */
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add box-shadow to transition */
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.game-card:hover, .release-card:hover, .top-game-card:hover, .news-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* Slightly larger shadow on hover */
-}
-
-/* Image common styles for cards */
-.game-image, .release-image, .top-game-image, .news-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-/* --- Next Releases Section --- */
-.releases-slider {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-.release-date {
-  background-color: var(--medium-gray); /* Using variable */
-  color: var(--white); /* Using variable */
-  text-align: center;
-  padding: 10px;
-  font-weight: bold;
-}
-
-.platform-tag {
-  background: var(--light-gray); /* Using variable */
-  color: var(--white);
-  font-size: 0.75rem;
-  padding: 4px 8px;
-  border-radius: 4px;
-  margin-right: 5px;
-}
-
-.wishlist-button {
-  background: none;
-  border: 1px solid var(--primary); /* Using variable */
-  color: var(--primary);
-  padding: 6px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: var(--transition); /* Add transition */
-}
-
-.wishlist-button:hover {
-  background-color: var(--primary);
-  color: var(--white);
-}
-
-/* --- Top Rated Section --- */
-.top-rated-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-.top-game-rank {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: var(--primary); /* Using variable */
-  color: var(--white);
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-weight: 700; /* Make rank stand out */
-}
-
-.top-game-info {
-  padding: 15px;
-  color: var(--white);
-}
-
-.top-game-stars i {
-  color: var(--yellow);
-  margin-right: 2px;
-}
-
-/* --- News Section --- */
-.news-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.news-content {
-  padding: 15px;
-  color: var(--white);
-}
-
-.news-date {
-  font-size: 0.8rem;
-  color: var(--light-gray); /* Using variable */
-}
-
-.news-title {
-  font-size: 1rem;
-  margin: 8px 0;
-  color: var(--white); /* Ensure title is white */
-}
-
-.news-excerpt {
-  font-size: 0.85rem;
-  color: var(--lighter); /* Using variable */
-}
-
-.news-link {
-  display: inline-block;
-  color: var(--primary); /* Using variable */
-  margin-top: 10px;
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-.news-link:hover {
-  color: var(--secondary);
-  text-decoration: underline;
-}
-
-/* --- Footer Section --- */
-.footer {
-  background-color: var(--darker); /* Using variable */
-  color: var(--lighter); /* Using variable */
-  padding: 40px 20px;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 30px;
-  margin-bottom: 30px;
-}
-
-.footer-title {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  color: var(--white);
-}
-
-.footer-links {
-  list-style: none;
-  padding: 0; /* Ensure no default padding */
-}
-
-.footer-link {
-  color: var(--light-gray); /* Using variable */
-  text-decoration: none;
-  display: block;
-  margin: 5px 0;
-  transition: color 0.3s;
-}
-
-.footer-link:hover {
-  color: var(--primary); /* Using variable */
-}
-
-.footer-social .social-link {
-  margin-right: 10px;
-  color: var(--lighter); /* Using variable */
-  font-size: 1.2rem;
-  transition: var(--transition);
-}
-
-.footer-social .social-link:hover {
-  color: var(--primary); /* Using variable */
-}
-
-.newsletter-input {
-  padding: 8px;
-  width: calc(70% - 2px); /* Adjust for border if present, or just 70% */
-  border: none;
-  border-radius: 6px 0 0 6px;
-  background-color: var(--medium-gray); /* Match theme */
-  color: var(--white);
-}
-
-.newsletter-button {
-  padding: 8px 12px;
-  background-color: var(--primary); /* Using variable */
-  border: none;
-  border-radius: 0 6px 6px 0;
-  color: var(--white);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.newsletter-button:hover {
-  background-color: var(--primary-hover); /* Using variable */
-}
-
-.footer-bottom {
-  border-top: 1px solid var(--medium-gray); /* Using variable */
-  padding-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px; /* Space between copyright and legal links */
-}
-
-.legal-link {
-  margin-left: 15px;
-  color: var(--light-gray); /* Using variable */
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-.legal-link:hover {
-  color: var(--primary); /* Using variable */
-}
-
-/* Footer Responsiveness */
-@media (max-width: 768px) {
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem; /* Add some space when stacked */
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .legal-link {
-    margin-left: 0;
-    margin-top: 10px;
-  }
-}
-/* --- Seção da Comunidade --- */
-.community-section {
-  padding: 4rem 0; /* Ajuste conforme necessário */
-  background-color: var(--color-dark-200); /* Exemplo, use sua cor de fundo */
-}
-
-.community-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.community-card {
-  background-color: var(--color-dark-300); /* Cor de fundo do card */
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--shadow-small); /* Sombra suave */
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.community-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-medium);
-}
-
-.community-image {
-  width: 100%;
-  height: 200px; /* Altura fixa para as imagens */
-  object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
-  border-bottom: 1px solid var(--color-border);
-}
-
-.community-content {
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Permite que o conteúdo ocupe o espaço restante */
-}
-
-.community-tag {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--color-primary-light); /* Cor de destaque para tags */
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.5px;
-}
-
-.community-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-light);
-  margin-bottom: 0.75rem;
-  line-height: 1.2;
-}
-
-.community-excerpt {
-  font-size: 0.95rem;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin-bottom: 1.25rem;
-  flex-grow: 1; /* Permite que o texto cresça */
-}
-
-.community-link {
-  color: var(--color-primary); /* Cor do link */
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: color 0.3s ease;
-}
-
-.community-link:hover {
-  color: var(--color-primary-light);
-}
-
-.community-link i {
-  font-size: 1rem;
+    filter: brightness(1.1);
 }
