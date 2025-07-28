@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtemiScore - Ranking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="rank.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="flex items-center">
+                <a href="#" class="logo">
+                    <img src="https://github.com/Thallys-San/ArtemiScore/blob/main/ArtemiScore%20(2).png?raw=true" 
+                         alt="ArtemiScore Logo" 
+                         class="logo-image">
+                </a>
+                <nav class="main-nav">
+                    <a href="index.html" class="nav-link">Início</a>
+                    <a href="Jogos.html" class="nav-link">Jogos</a>
+                    <a href="/" class="nav-link active">Ranking</a>
+                    <a href="lancamento.html" class="nav-link">Lançamentos</a>
+                
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar jogos..." class="search-input">
+                    <div class="search-icon">
+                        <i class="ri-search-line"></i>
+                    </div>
+                </div>
+                <div class="relative" id="userMenuContainer">
+                    <div class="user-menu-button" id="userMenuButton">
+                        <i class="ri-user-line user-icon"></i>
+                    </div>
+                    <div class="user-dropdown" id="userDropdownMenu">
+                        <a href="#" class="dropdown-item">
+                            <div class="dropdown-icon">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <span>Meu Perfil</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="dropdown-icon">
+                                <i class="ri-star-line"></i>
+                            </div>
+                            <span>Minhas Avaliações</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="dropdown-icon">
+                                <i class="ri-heart-line"></i>
+                            </div>
+                            <span>Jogos Favoritos</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <div class="dropdown-icon">
+                                <i class="ri-settings-3-line"></i>
+                            </div>
+                            <span>Configurações</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <div class="dropdown-icon">
+                                <i class="ri-logout-box-line"></i>
+                            </div>
+                            <span>Sair</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="ranking-section">
+        <div class="container">
+            <div class="ranking-header">
+                <h1>Ranking de Jogos</h1>
+                <p>Descubra os jogos mais bem avaliados pela comunidade ArtemiScore. Este ranking é atualizado diariamente com base nas avaliações de milhares de jogadores.</p>
+            </div>
+            
+            <div class="ranking-controls">
+                <div class="filter-group">
+                    <span class="filter-label">Filtrar por:</span>
+                    <select class="filter-select">
+                        <option>Todos os Gêneros</option>
+                        <option>Ação</option>
+                        <option>Aventura</option>
+                        <option>RPG</option>
+                        <option>Estratégia</option>
+                        <option>FPS</option>
+                    </select>
+                    
+                    <select class="filter-select">
+                        <option>Todas as Plataformas</option>
+                        <option>PC</option>
+                        <option>PlayStation</option>
+                        <option>Xbox</option>
+                        <option>Nintendo</option>
+                        <option>Mobile</option>
+                    </select>
+                    
+                    <select class="filter-select">
+                        <option>Ordenar por: Melhor Avaliação</option>
+                        <option>Mais Avaliados</option>
+                        <option>Lançamento Recente</option>
+                        <option>Popularidade</option>
+                    </select>
+                </div>
+                
+                <div class="search-control">
+                    <input type="text" placeholder="Buscar jogo...">
+                    <div class="search-icon">
+                        <i class="ri-search-line"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ranking-container">
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th class="sortable">Posição <i class="ri-arrow-up-down-line"></i></th>
+                            <th>Jogo</th>
+                            <th>Plataformas</th>
+                            <th class="sortable">Avaliação <i class="ri-arrow-up-down-line"></i></th>
+                            <th class="sortable">Tendência <i class="ri-arrow-up-down-line"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="position-1">
+                            <td class="position-cell">1</td>
+                            <td>
+                                <div class="game-info">
+                                    <img src="https://image.api.playstation.com/vulcan/ap/rnd/202207/1210/4xJ8XB3bi888QTLZYdl7Oi0s.png" alt="The Witcher 3" class="game-image">
+                                    <div class="game-details">
+                                        <div class="game-title">The Witcher 3: Wild Hunt</div>
+                                        <div class="game-genre">RPG, Ação, Aventura</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="platforms">
+                                    <span class="platform-tag">PC</span>
+                                    <span class="platform-tag">PS4</span>
+                                    <span class="platform-tag">Xbox</span>
+                                    <span class="platform-tag">Switch</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="rating-cell">
+                                    <div class="stars">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-half-fill"></i>
+                                    </div>
+                                    <div>
+                                        <div class="rating-value">4.9</div>
+                                        <div class="reviews-count">(15,000 avaliações)</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="trend up">
+                                <i class="ri-arrow-up-line"></i> 1 posição
+                            </td>
+                        </tr>
+                        <tr class="position-2">
+                            <td class="position-cell">2</td>
+                            <td>
+                                <div class="game-info">
+                                    <img src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" alt="God of War" class="game-image">
+                                    <div class="game-details">
+                                        <div class="game-title">God of War (2018)</div>
+                                        <div class="game-genre">Ação, Aventura, RPG</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="platforms">
+                                    <span class="platform-tag">PS4</span>
+                                    <span class="platform-tag">PS5</span>
+                                    <span class="platform-tag">PC</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="rating-cell">
+                                    <div class="stars">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-half-fill"></i>
+                                    </div>
+                                    <div>
+                                        <div class="rating-value">4.8</div>
+                                        <div class="reviews-count">(12,500 avaliações)</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="trend neutral">
+                                <i class="ri-arrow-right-line"></i> Estável
+                            </td>
+                        </tr>
+                        <tr class="position-3">
+                            <td class="position-cell">3</td>
+                            <td>
+                                <div class="game-info">
+                                    <img src="https://image.api.playstation.com/vulcan/img/cfn/11307uYG0CXzRuA9aryByTHYrQLFz-HVQ3VVl7aAysxK15HMpqjkAIcC_R5vdfZt52hAXQNHoYhSuoSq_46_MT_tDBcLu49I.png" alt="Red Dead Redemption 2" class="game-image">
+                                    <div class="game-details">
+                                        <div class="game-title">Red Dead Redemption 2</div>
+                                        <div class="game-genre">Ação, Aventura, Mundo Aberto</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="platforms">
+                                    <span class="platform-tag">PS4</span>
+                                    <span class="platform-tag">Xbox</span>
+                                    <span class="platform-tag">PC</span>
+                                    <span class="platform-tag">Stadia</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="rating-cell">
+                                    <div class="stars">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-half-fill"></i>
+                                    </div>
+                                    <div>
+                                        <div class="rating-value">4.8</div>
+                                        <div class="reviews-count">(14,200 avaliações)</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="trend down">
+                                <i class="ri-arrow-down-line"></i> 1 posição
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="position-cell">4</td>
+                            <td>
+                                <div class="game-info">
+                                    <img src="https://image.api.playstation.com/vulcan/ap/rnd/202011/0714/vuLKIxy5HZ2g2HrzfR6G6wSh.png" alt="The Last of Us Part II" class="game-image">
+                                    <div class="game-details">
+                                        <div class="game-title">The Last of Us Part II</div>
+                                        <div class="game-genre">Ação, Aventura, Sobrevivência</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="platforms">
+                                    <span class="platform-tag">PS4</span>
+                                    <span class="platform-tag">PS5</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="rating-cell">
+                                    <div class="stars">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-half-fill"></i>
+                                    </div>
+                                    <div>
+                                        <div class="rating-value">4.7</div>
+                                        <div class="reviews-count">(10,800 avaliações)</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="trend up">
+                                <i class="ri-arrow-up-line"></i> 2 posições
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="position-cell">5</td>
+                            <td>
+                                <div class="game-info">
+                                    <img src="https://image.api.playstation.com/vulcan/ap/rnd/202008/1420/Hb6Gk0QCc0JKGMWJRrTjUJwV.png" alt="Ghost of Tsushima" class="game-image">
+                                    <div class="game-details">
+                                        <div class="game-title">Ghost of Tsushima</div>
+                                        <div class="game-genre">Ação, Aventura, Mundo Aberto</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="platforms">
+                                    <span class="platform-tag">PS4</span>
+                                    <span class="platform-tag">PS5</span>
+                                    <span class="platform-tag">PC</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="rating-cell">
+                                    <div class="stars">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-line"></i>
+                                    </div>
+                                    <div>
+                                        <div class="rating-value">4.6</div>
+                                        <div class="reviews-count">(9,500 avaliações)</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="trend neutral">
+                                <i class="ri-arrow-right-line"></i> Estável
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="position-cell">6</td>
+                            <td>
+                                <div class="game-info">
+                                    <img src="https://cdn1.epicgames.com/offer/fn/16BR_Capsule_1200x1600_1200x1600-6fcd6d7c5f9a2f0c0c5b9c9f5c5c5c5b" alt="Fortnite" class="game-image">
+                                    <div class="game-details">
+                                        <div class="game-title">Fortnite</div>
+                                        <div class="game-genre">Battle Royale, FPS, Sobrevivência</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="platforms">
+                                    <span class="platform-tag">PC</span>
+                                    <span class="platform-tag">PS4</span>
+                                    <span class="platform-tag">Xbox</span>
+                                    <span class="platform-tag">Mobile</span>
+                                    <span class="platform-tag">Switch</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="rating-cell">
+                                    <div class="stars">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-half-fill"></i>
+                                    </div>
+                                    <div>
+                                        <div class="rating-value">4.5</div>
+                                        <div class="reviews-count">(85,000 avaliações)</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="trend down">
+                                <i class="ri-arrow-down-line"></i> 1 posição
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="position-cell">7</td>
+                            <td>
+                                <div class="game-info">
+                                    <img src="https://cdn1.epicgames.com/offer/2bda08f9230144a19e98373cc4a6ac2d/EGS_EldenRing_BandaiNamcoEntertainment_S2_03_1200x1600-3aeb1398aacd9c85b4d8e3a89e00f5c8" alt="Elden Ring" class="game-image">
+                                    <div class="game-details">
+                                        <div class="game-title">Elden Ring</div>
+                                        <div class="game-genre">RPG, Ação, Mundo Aberto</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="platforms">
+                                    <span class="platform-tag">PC</span>
+                                    <span class="platform-tag">PS4</span>
+                                    <span class="platform-tag">PS5</span>
+                                    <span class="platform-tag">Xbox</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="rating-cell">
+                                    <div class="stars">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-line"></i>
+                                    </div>
+                                    <div>
+                                        <div class="rating-value">4.5</div>
+                                        <div class="reviews-count">(22,500 avaliações)</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="trend up">
+                                <i class="ri-arrow-up-line"></i> 3 posições
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="position-cell">8</td>
+                            <td>
+                                <div class="game-info">
+                                    <img src="https://cdn1.epicgames.com/offer/24b9b5e323bc40eea252a10cdd3b2f10/EGS_HorizonForbiddenWestCompleteEdition_GuerrillaGames_S2_1200x1600-8e5d4b1f3b0e9a0d4a5c5c5c5c5c5c5c5" alt="Horizon Forbidden West" class="game-image">
+                                    <div class="game-details">
+                                        <div class="game-title">Horizon Forbidden West</div>
+                                        <div class="game-genre">Ação, RPG, Mundo Aberto</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="platforms">
+                                    <span class="platform-tag">PS4</span>
+                                    <span class="platform-tag">PS5</span>
+                                    <span class="platform-tag">PC</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="rating-cell">
+                                    <div class="stars">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-line"></i>
+                                    </div>
+                                    <div>
+                                        <div class="rating-value">4.4</div>
+                                        <div class="reviews-count">(8,700 avaliações)</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="trend neutral">
+                                <i class="ri-arrow-right-line"></i> Estável
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="position-cell">9</td>
+                            <td>
+                                <div class="game-info">
+                                    <img src="https://cdn1.epicgames.com/offer/3e84a67b1a3e4b4ea99b1a7d4f0a0c6d/EGS_Starfield_BethesdaGameStudios_S2_1200x1600-1e3e8d3b6b0f6f2c8f9c5c5c5c5c5c5c5" alt="Starfield" class="game-image">
+                                    <div class="game-details">
+                                        <div class="game-title">Starfield</div>
+                                        <div class="game-genre">RPG, Ficção Científica, Mundo Aberto</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="platforms">
+                                    <span class="platform-tag">Xbox</span>
+                                    <span class="platform-tag">PC</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="rating-cell">
+                                    <div class="stars">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-half-fill"></i>
+                                        <i class="ri-star-line"></i>
+                                    </div>
+                                    <div>
+                                        <div class="rating-value">4.2</div>
+                                        <div class="reviews-count">(18,300 avaliações)</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="trend up">
+                                <i class="ri-arrow-up-line"></i> 1 posição
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="position-cell">10</td>
+                            <td>
+                                <div class="game-info">
+                                    <img src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" alt="Spider-Man 2" class="game-image">
+                                    <div class="game-details">
+                                        <div class="game-title">Spider-Man 2</div>
+                                        <div class="game-genre">Ação, Aventura, Mundo Aberto</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="platforms">
+                                    <span class="platform-tag">PS5</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="rating-cell">
+                                    <div class="stars">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-half-fill"></i>
+                                    </div>
+                                    <div>
+                                        <div class="rating-value">4.7</div>
+                                        <div class="reviews-count">(7,500 avaliações)</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="trend down">
+                                <i class="ri-arrow-down-line"></i> 2 posições
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <div class="page-item disabled">
+                        <i class="ri-arrow-left-s-line"></i>
+                    </div>
+                    <div class="page-item active">1</div>
+                    <div class="page-item">2</div>
+                    <div class="page-item">3</div>
+                    <div class="page-item">4</div>
+                    <div class="page-item">5</div>
+                    <div class="page-item">
+                        <i class="ri-arrow-right-s-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Novo rodapé baseado na imagem -->
+    <footer class="new-footer">
+        <div class="container footer-container">
+            <div class="footer-header">
+                <h2>ArtemiScore</h2>
+                <p>Sua plataforma completa para descobrir, avaliar e compartilhar experiências com jogos. Junte-se à comunidade de gamers apaixonados!</p>
+            </div>
+            
+            <div class="footer-content">
+                <div class="footer-column">
+                    <a href="#" class="logo" style="margin-bottom: 1rem; display: inline-block;">
+                        <img src="https://github.com/Thallys-San/ArtemiScore/blob/main/ArtemiScore%20(2).png?raw=true" 
+                             alt="ArtemiScore" 
+                             class="logo-image">
+                    </a>
+                    <p style="color: var(--light-gray); font-size: 0.9rem;">Sua plataforma completa para o mundo dos jogos. Descubra, avalie e conecte-se.</p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Úteis</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="ri-arrow-right-s-line"></i> Sobre Nós</a></li>
+                        <li><a href="#"><i class="ri-arrow-right-s-line"></i> Carreira</a></li>
+                        <li><a href="#"><i class="ri-arrow-right-s-line"></i> Termos de Serviço</a></li>
+                        <li><a href="#"><i class="ri-arrow-right-s-line"></i> Política de Privacidade</a></li>
+                        <li><a href="#"><i class="ri-arrow-right-s-line"></i> Ajuda e FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Navegar</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="ri-arrow-right-s-line"></i> Todos os Jogos</a></li>
+                        <li><a href="#"><i class="ri-arrow-right-s-line"></i> Próximos Lançamentos</a></li>
+                        <li><a href="#"><i class="ri-arrow-right-s-line"></i> Jogos Populares</a></li>
+                        <li><a href="#"><i class="ri-arrow-right-s-line"></i> Análises Recentes</a></li>
+                        <li><a href="#"><i class="ri-arrow-right-s-line"></i> Fóruns da Comunidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="ri-map-pin-line"></i> Rua Exemplo, 123, Cidade, País</a></li>
+                        <li><a href="mailto:contato@artemiscore.com"><i class="ri-mail-line"></i> contato@artemiscore.com</a></li>
+                        <li><a href="tel:+5511987654321"><i class="ri-phone-line"></i> +55 (11) 98765-4321</a></li>
+                    </ul>
+                    <div class="newsletter-container">
+                        <p>Inscreva-se para receber novidades</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Seu e-mail">
+                            <button type="submit">Inscrever</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="signal">
+                    <span>ArtemiScore © 2025</span>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Cookies</a>
+                </div>
+                <div class="copyright">
+                    &copy; 2025 ArtemiScore. Todos os direitos reservados.
+                </div>
+            </div>
+        </div>
+    </footer>
