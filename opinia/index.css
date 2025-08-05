@@ -1,0 +1,52 @@
+/* Exemplo em :root (recomendado no global.css ou index.css) */
+:root {
+  /* Cores */
+  --white: #ffffff;
+  --lighter: #e0e0e6;
+  --light-gray: #9ca3af;
+  --medium-gray: #4b5563;
+  --dark-gray: #1e1e24;
+  --dark: #141418;
+  --primary: #5733ef;
+  --yellow: #fcd34d;
+  --green: #22c55e;
+  --red: #ef4444;
+
+  /* Gradientes */
+  --gradient-primary: linear-gradient(135deg, #7c50f4, #5733ef);
+  --gradient-dark: linear-gradient(135deg, #121218, #1a1a24);
+
+  /* Sombra */
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.3);
+
+  /* Brilho (glow) */
+  --glow: 0 0 20px rgba(87, 51, 239, 0.4);
+  --glow-hover: 0 0 15px rgba(87, 51, 239, 0.25);
+
+  /* Transições */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--gradient-dark);
+  background-color: var(--dark);
+  color: var(--lighter);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  background-color: var(--purple-900);
+  color: var(--yellow);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
